@@ -1,22 +1,37 @@
 <template>
+  <navComponent></navComponent>
   <nav>
+
+    <img alt="Vue logo" src="./assets/logo.png">
 
 
 
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/song">About</router-link>
+
   </nav>
   <router-view/>
+  <playerComponent></playerComponent>
 </template>
 <script>
+import navComponent from './components/navComponent.vue';
+import playerComponent from './components/playerComponent.vue';
 import  AxiosInstance  from 'axios';
 export default {
   name: 'app',
+  components : {
+    navComponent,
+    playerComponent
+  },
   methods: {
     // ...
   },data(){
     return {
-      caca : 'caca'
+      allSongs : [],
+      songsFiltered : [],
+      currentPlaylist : [],
+      currentSong : {},
+      
     }
   },
   created(){
