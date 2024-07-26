@@ -1,9 +1,9 @@
 import axios from 'axios';
-import Vue from 'vue';
 
 const Axiosinstance = axios.create({
   baseURL: 'http://localhost:3000/',
 });
 
+export const API_BASE_URL = 'http://localhost:3000/files';
 
 export default Axiosinstance;

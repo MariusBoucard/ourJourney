@@ -16,7 +16,7 @@
 <script>
 import navComponent from './components/navComponent.vue';
 import playerComponent from './components/playerComponent.vue';
-import  AxiosInstance  from 'axios';
+import  AxiosInstance  from '../axios';
 export default {
   name: 'app',
   components : {
@@ -35,8 +35,9 @@ export default {
     }
   },
   created(){
-    AxiosInstance.get('/').then((res)=>{
+    AxiosInstance.get('allPublicSongs').then((res)=>{
       console.log(res)
+      this.allSongs = res.data
     }).catch((err)=>{
       console.log(err)
     })

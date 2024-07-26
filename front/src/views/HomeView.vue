@@ -9,7 +9,7 @@
       </div>
       <div class="main-content">
         <div class="cardsComponent">
-          <template v-for="card in soundCards" :key="card.title">
+          <template v-for="card in allSongs" :key="card.title">
             <CarteComponent :carteValue="card" />
           </template>
         </div>
@@ -22,6 +22,7 @@
 // @ is an alias to /src
 import CarteComponent from '@/components/carteComponent.vue';
 import sidebarComponent from '@/components/sidebarComponent.vue';
+import  AxiosInstance  from '../../axios';
 
 export default {
   name: 'HomeView',
@@ -31,9 +32,18 @@ export default {
   },
   data(){
     return {
-      soundCards : [{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' } ]
+      allSongs : [{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' } ]
     }
   },
+  created(){
+    AxiosInstance.get('allPublicSongs').then((res)=>{
+      console.log(res)
+      this.allSongs = res.data
+    }).catch((err)=>{
+      console.log(err)
+    })
+    // ...
+  }
 }
 </script>
 <style>

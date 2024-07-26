@@ -1,12 +1,12 @@
 <template>
     <div class="card">
       <div class="card-content">
-        <h2>{{ carte.title }}</h2>
-        <img :src="carte.picture" alt="Picture" class="card-img">
+        <h2>{{ carte.titre }}</h2>
+        <img :src=getPathCover(carte.pathcover) alt="Picture" class="card-img">
         <p>Genre: {{ carte.genre }}</p>
-        <p>Artist: {{ carte.artist }}</p>
-        <p>Type: {{ carte.type }}</p>
-        <p>Album: {{ carte.album }}</p>
+        <p>Artist: {{ carte.artistes }}</p>
+        <p>Type: {{ carte.support }}</p>
+        <p>Album: {{ carte.titrealbum }}</p>
       </div>
       <div class="card-actions">
         <button @click="addToPlaylist">Add to Playlist</button>
@@ -18,11 +18,14 @@
   </template>
   
   <script>
-  export default {
+import { API_BASE_URL } from '/axios';
+
+export default {
     props: ['carteValue'],
     data() {
       return {
-        carte: this.carteValue
+        carte: this.carteValue,
+        baseURL : API_BASE_URL
       }
     },
     watch: {
@@ -34,6 +37,14 @@
       }
     },
     methods: {
+      getPathCover(path){
+        let splits = path.split('/')
+        if(splits.length > 1){
+            console.log(this.baseURL + splits[splits.length - 1])
+          return this.baseURL+"/cover/" + splits[splits.length - 1]
+        }
+        return ''
+      },
       addToPlaylist() {
         // Implement adding to playlist
       },
