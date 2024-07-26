@@ -29,6 +29,14 @@ app.get('/allPublicSongs', async (req, res) => {
 app.get("/song/:id", async (req, res) => {
     console.log("not implemented yet");
     let song = await databaseServ.askSong(req.params.id);
+    console.log(song)
+    res.send(song);
+})
+
+app.get("/songLinks/:id", async (req, res) => {
+    console.log("not implemented yet");
+    let song = await databaseServ.songLinks(req.params.id);
+    console.log(song)
     res.send(song);
 })
 

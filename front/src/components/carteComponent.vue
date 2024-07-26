@@ -11,9 +11,8 @@
       <div class="card-actions">
         <button @click="addToPlaylist">Add to Playlist</button>
         <button @click="listenSong">Listen Song</button>
-        <button @click="goToPage">Go to Page</button>
-        <button @click="seeOnSocial">See on Social Networks</button>
-      </div>
+        <router-link :to="`/song/${carte.songbacktitle}`" class="button-like-link">go to page</router-link>    
+        <router-link :to="`/song/linktree/${carte.songbacktitle}`" class="button-like-link">See on Social Networks</router-link>      </div>
     </div>
   </template>
   
@@ -80,7 +79,10 @@ export default {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-
+.card-img{
+    width:80%;
+    height : 100%
+}
 
 .card-actions button {
   background-color: #064420;
@@ -91,7 +93,17 @@ export default {
   transition: background-color 0.3s ease, transform 0.2s ease;
   border-radius: 5px;
 }
-
+.button-like-link {
+  display: inline-block;
+  background-color: #007bff; /* Example button color */
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .card-actions button:hover {
   background-color: #ffffff;
   color: #064420;

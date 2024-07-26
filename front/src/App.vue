@@ -2,13 +2,6 @@
   <navComponent></navComponent>
   <nav>
 
-    <img alt="Vue logo" src="./assets/logo.png">
-
-
-
-    <router-link to="/">Home</router-link> |
-    <router-link to="/song">About</router-link>
-
   </nav>
   <router-view/>
   <playerComponent></playerComponent>

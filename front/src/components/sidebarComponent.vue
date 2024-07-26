@@ -74,7 +74,7 @@
     justify-content: space-between; /* This will push the menu to the bottom */
 
     padding: 20px;
-    height: 100%;
+    height: 100vh;
   }
   
   .sidebar-title {

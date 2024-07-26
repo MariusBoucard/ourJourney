@@ -3,7 +3,7 @@
       <nav class="topbar">
         <div class="logo-and-title">
           <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-          <span>ourJourney</span>
+           <router-link to="/">our Journey</router-link>
         </div>
         <div class="nav-links">
           <router-link to="/">Home</router-link>

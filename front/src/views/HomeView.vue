@@ -39,6 +39,7 @@ export default {
     AxiosInstance.get('allPublicSongs').then((res)=>{
       console.log(res)
       this.allSongs = res.data
+      this.allSongs = this.allSongs.sort((a, b) => new Date(b.date) - new Date(a.date));    
     }).catch((err)=>{
       console.log(err)
     })
@@ -53,13 +54,12 @@ export default {
   --light-color: #ffffff;
 }
 .cardsComponent{
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Creates three columns of equal width */
+  gap: 20px; /* Maintains the gap between cards */
   padding-top: 30px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
   background-color: #333333;
+  justify-items: center; 
 }
 .layout {
   display: flex;
