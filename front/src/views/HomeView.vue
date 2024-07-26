@@ -3,11 +3,14 @@
 
 
  <div class="layout">
-      <div class="sidebar">
-        
-        <sidebarComponent />
-      </div>
-      <div class="main-content">
+   <div class="sidebar">
+     <sidebarComponent />
+     </div>
+     <div class="main-content">
+      <div class="image-container">
+      <img src="assets/banderole.png"/>
+      <button class="button-overlay">Dernière chanson publiée</button>
+    </div>
         <div class="cardsComponent">
           <template v-for="card in allSongs" :key="card.title">
             <CarteComponent :carteValue="card" />
@@ -55,23 +58,66 @@ export default {
 }
 .cardsComponent{
   display: grid;
+  width : 70%;
+  margin: auto;
   grid-template-columns: repeat(3, 1fr); /* Creates three columns of equal width */
   gap: 20px; /* Maintains the gap between cards */
   padding-top: 30px;
-  background-color: #333333;
   justify-items: center; 
 }
 .layout {
   display: flex;
+  height: calc(100vh - /* Topbar height + Footer height */);
 }
 
 .sidebar {
-  width: auto;
+  /* width: auto; Removed to allow flex-basis to control the width */
+  flex: 0 0 auto; /* Do not grow, do not shrink, initial width auto */
+  overflow-y: auto;
+  margin: 0;
+  /* Set a specific width if needed, e.g., flex-basis: 200px; */
   /* Additional styling for the sidebar */
 }
 
 .main-content {
-  width: auto;
+  flex-grow: 1; /* Takes up the remaining space */
+  background-color: #d3d3d3;
   /* Additional styling for the main content area */
+}
+
+.image-container {
+  width: 70%;
+  position: relative; /* Allows absolute positioning of children */
+  margin: auto; /* Center the container */
+  margin-top: 20px; /* Adjust top margin as needed */
+  border-radius: 20px;
+}
+
+.image-container img {
+  width: 100%; /* Make the image fit the width of the container */
+  height: auto; /* Adjust height automatically to maintain aspect ratio */
+  object-fit: cover; /* Adjust this as needed to 'contain' or 'cover' */
+  border-radius: 20px;
+}
+
+.button-overlay {
+  position: absolute;
+  top: 80%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, 20%); /* Adjust horizontal centering and move slightly towards the bottom */
+  background-color: transparent; /* Or any color */
+  color: white; /* Text color */
+  font-weight: 500;
+  font-size: larger;
+  border: none; /* Remove border */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  padding: 10px 20px; /* Adjust padding */
+  text-align: center; /* Center text */
+  border-radius: 10px; /* Adjust border radius */
+}
+
+.button-overlay:hover{
+  background-color: rgba(255, 255, 255, 0.5); /* Add a semi-transparent background on hover */
+  color: black; /* Change text color on hover */
 }
 </style>

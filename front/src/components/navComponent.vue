@@ -2,13 +2,15 @@
     <div>
       <nav class="topbar">
         <div class="logo-and-title">
-          <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-           <router-link to="/">our Journey</router-link>
+
+          <img alt="logo" style="height:50px; margin : auto" src="/assets/pioneerWhite.png">
         </div>
         <div class="nav-links">
-          <router-link to="/">Home</router-link>
+          <!-- <router-link to="/">Home</router-link>
           <router-link to="/song">About</router-link>
-          <button @click="toggleInfoDiv">Last Release</button>
+          <button @click="toggleInfoDiv">Last Release</button> -->
+          <router-link class="title" to="/">our Journey</router-link>
+
         </div>
         <button class="info-toggle" @click="toggleInfoDiv">☰</button>
       </nav>
@@ -53,6 +55,12 @@
     margin-right: 10px;
   }
   
+  .title{
+    color : white !important;
+    font-size: 24px;
+    font-weight: bold;
+
+  }
   .nav-links {
     display: flex;
     align-items: center;

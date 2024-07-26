@@ -15,7 +15,8 @@
         <p>Release Date: {{ song.date }}</p>
         <p>Support : {{ song.support }}</p>
         <p>description: {{ song.description }}</p>
-      </div>
+        <router-link :to="`/song/linktree/${song.songbacktitle}`">caca</router-link>
+            </div>
     </div>
     <div class="lyricsDiv">
         {{ song.lyrics }}

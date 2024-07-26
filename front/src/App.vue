@@ -1,8 +1,6 @@
 <template>
   <navComponent></navComponent>
-  <nav>
 
-  </nav>
   <router-view/>
   <playerComponent></playerComponent>
 </template>
@@ -46,7 +44,9 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
+body {
+  margin : 0;
+}
 nav {
   padding: 30px;
 }
