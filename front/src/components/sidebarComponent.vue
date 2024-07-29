@@ -2,7 +2,7 @@
     <div class="sidebar" @mouseover="menuOpen = true" @mouseleave="menuOpen = false">
       <div style="margin-top :150px" class="itemLine">
         <!-- Recherche -->
-        <img src="assets/loupe.png" alt="search" class="roundedPic">
+        <img src="/assets/loupe.png" alt="search" class="roundedPic">
         <div v-if="this.menuOpen" class="lineName">
           <input v-model="searchSong" class="beautifulInput"/>
         </div>
@@ -18,20 +18,20 @@
         <!-- Artists linktree -->
         <a href="#">
           <div class="itemLine">
-            <img src="logos/spotify.png" alt="search" class="roundedPic">
+            <img src="/logos/spotify.png" alt="search" class="roundedPic">
             <span v-if="this.menuOpen" class="lineName">Ballzy</span>
         </div>
         </a>
         <a href="#">
           <div class="itemLine">
-            <img src="logos/deezer.png" alt="search" class="roundedPic">
+            <img src="/logos/deezer.png" alt="search" class="roundedPic">
             <span v-if="this.menuOpen" class="lineName">Ballzy</span>
         </div>
         </a>    
         
         <a href="#">
           <div class="itemLine">
-            <img src="assets/bf.jpg" alt="search" class="roundedPic">
+            <img src="/assets/bf.jpg" alt="search" class="roundedPic">
             <span v-if="this.menuOpen" class="lineName">Ballzy</span>
         </div>
         </a> 
@@ -39,7 +39,7 @@
         <a href="#">
           <div class="itemLine">
             <!-- brutal webSite -->
-        <img src="assets/insta.png" alt="search" class="roundedPic">
+        <img src="/assets/insta.png" alt="search" class="roundedPic">
         <span v-if="this.menuOpen" class="lineName">instagram</span>
       </div>
         </a>
@@ -146,6 +146,7 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    width : 100%;
     margin-top: 20px;
   }
   
@@ -163,22 +164,41 @@
   .menu-open.hamburger-menu {
     transform: rotate(90deg);
   }
-  .roundedPic{
-    width : 50px;
-    border-radius: 50%;
-  }
+  .roundedPic {
+  width: 50px;
+  height: 50px; /* Ensuring the image is a perfect circle */
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image covers the area without losing its aspect ratio */
+  transition: transform 0.3s ease; /* Smooth transition for scale effect */
+}
 
 .itemLine {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  align-items: center; /* This will vertically center the items in the container */
-  gap: 10px; /* Adds some space between the image and the text */
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0; /* Adds padding to the top and bottom for better spacing */
+  transition: background-color 0.3s ease; /* Smooth transition for background color change */
+}
+
+.itemLine:hover .roundedPic {
+  transform: scale(1.1); /* Slightly enlarges the image on hover */
+}
+
+.itemLine:hover {
+  background-color: #f0f0f0; /* Light grey background on hover for visual feedback */
+  cursor: pointer; /* Changes the cursor to indicate it's clickable */
 }
 
 .lineName {
-  /* Additional styling for the text */
-  font-size: 16px; /* Example font size, adjust as needed */
-  color: #333; /* Example text color, adjust as needed */
+  font-size: 16px;
+  color: #333;
+  font-weight: bold; /* Makes the text bold for better readability */
+  transition: color 0.3s ease; /* Smooth transition for text color change */
+}
+
+.itemLine:hover .lineName {
+  color: #007bff; /* Changes text color on hover for visual feedback */
 }
   </style>

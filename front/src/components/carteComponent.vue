@@ -12,13 +12,17 @@
         </div>
       </div>
       <div class="card-actions">
-        <button @click="addToPlaylist" class="playButton" title="Add to playlist">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">
-          <path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C 37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46 25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
-          </svg>
-        </button>
-        <button @click="listenSong" title="play the song" class="playButton">
-                    <svg fill="#000000" height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 	 viewBox="0 0 512 512" xml:space="preserve">
+        <div style="margin-top: 20px; margin-bottom: 20px;">
+
+<router-link :to="`/song/linktree/${carte.songbacktitle}`" class="buttonLink" width="100px">
+  <img src="/assets/headphone.png" alt="spotify" style="height:30px"> 
+
+
+</router-link>    
+</div>
+        <div style="height:60px; display: flex; justify-content: space-between; width:50%; margin: auto; margin-bottom: 10px;">
+                    <button class="buttonLink" >
+          <svg fill="#000000" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 	 viewBox="0 0 512 512" xml:space="preserve">
           <g>
             <g>
               <path d="M256,0C114.608,0,0,114.608,0,256s114.608,256,256,256s256-114.608,256-256S397.392,0,256,0z M256,496
@@ -31,12 +35,22 @@
             </g>
           </g>
           </svg>
-        </button>
-        <router-link :to="`/song/${carte.songbacktitle}`" class="button-like-link">
-            <img src="/assets/fleche.png" alt="spotify" style="width: 20px; height: 20px;"> 
+         </button>
+        <button class="buttonLink">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
+          <path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C 37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46 25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
+          </svg>
+                </button>
+        <button class="buttonLink">
 
-        </router-link>    
-        <router-link :to="`/song/linktree/${carte.songbacktitle}`" class="button-like-link">See on Social Networks</router-link>      </div>
+          <router-link :to="`/song/${carte.songbacktitle}`" class="buttonLink">
+            <img src="/assets/fleche.png" alt="spotify" style="height:30px"> 
+          
+          </router-link>   
+        </button>
+        </div>
+
+          </div> 
     </div>
   </template>
   
@@ -100,7 +114,42 @@ export default {
   --deep-grey: #333333;
   --light-color: #ffffff;
 }
+.buttonLink {
+  padding: 10px 20px; /* Existing padding inside the buttons */
+  border: none; /* Existing border removal */
+  border-radius: 5px; /* Existing rounded corners for buttons */
+  cursor: pointer; /* Existing pointer cursor on hover */
+  background-color: #fff; /* Existing white background for buttons */
+  color: #6a11cb; /* Existing text color for buttons */
+  transition: background-color 0.3s, color 0.3s; /* Existing smooth transition for hover effect */
+  display: inline-flex; /* Use flexbox for centering content */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  width: 60px; /* Set a specific width */
+  height: 60px; /* Set a specific height */
+  padding: 0; /* Override padding to fit the design */
+  vertical-align: top; /* Adjusts the vertical alignment */
+  margin: 0; /* Ensures no margin is applied */
+  padding: 0; /* Ensures no padding is applied */
+}
 
+.buttonLink svg {
+  width: 30px; /* Control width of SVGs and images */
+  height: 30px; /* Control height of SVGs and images */
+}
+
+.buttonLink img {
+  width: 30px; /* Control width of SVGs and images */
+  height: 30px; /* Control height of SVGs and images */
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Optional: Adjust hover effect to include color changes for SVGs and images */
+.buttonLink:hover {
+  background-color: #e0e0e0; /* Slightly darker shade on hover */
+  color: #4a148c; /* Change text (and SVG) color on hover */
+}
 .home {
   background-color: #064420;
   color: #ffffff;
@@ -143,7 +192,7 @@ svg{
   padding : 10px;
 }
 
-.card-actions button {
+/* .card-actions button {
   background-color: #064420;
   color: #ffffff;
   border: none;
@@ -154,7 +203,7 @@ svg{
 }
 .button-like-link {
   display: inline-block;
-  background-color: #007bff; /* Example button color */
+  background-color: #007bff; 
   color: white;
   padding: 10px 15px;
   text-align: center;
@@ -172,13 +221,29 @@ svg{
   transform: scale(0.95);
 }
 
-/* Adding a subtle shadow to buttons for depth */
 .card-actions button {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Enhancing the hover effect with a slight rotation */
 .card-actions button:hover {
   transform: translateY(-3px) rotate(-2deg);
+} */
+.playButton {
+  padding: 10px 20px; /* Adjust padding to your preference */
+  border: 2px solid rgba(255, 255, 255, 0.2); /* Light border for the glass effect */
+  outline: none; /* Remove default focus outline */
+  font-size: 16px; /* Adjust font size to your preference */
+  font-weight: bold; /* Make the text bold */
+  color: white; /* Text color */
+  background: linear-gradient(135deg, rgba(67, 233, 123, 0.6), rgba(56, 249, 215, 0.6)); /* New gradient background */
+  backdrop-filter: blur(10px); /* Blur effect for the glassmorphism */
+  border-radius: 10px; /* Rounded corners */
+  cursor: pointer; /* Change mouse cursor on hover */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.playButton:hover {
+  background: linear-gradient(135deg, rgba(67, 233, 123, 0.8), rgba(56, 249, 215, 0.8)); /* Darker gradient on hover */
+  transform: scale(1.05); /* Slightly increase size on hover */
 }
   </style>

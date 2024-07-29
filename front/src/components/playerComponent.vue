@@ -67,13 +67,29 @@
     background-color: #333;
     color: white;
   }
-  
   .transport-controls button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-  }
+  background-color: #4CAF50; /* Green background */
+  border: none; /* Removes the default border */
+  color: white; /* White text color */
+  padding: 10px 20px; /* Padding around the text */
+  text-align: center; /* Center the text/icon */
+  text-decoration: none; /* Removes underline from icons/text */
+  display: inline-block; /* Allows setting dimensions */
+  font-size: 16px; /* Increases the font size */
+  margin: 4px 2px; /* Adds some space around the buttons */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  cursor: pointer; /* Changes cursor to pointer to indicate it's clickable */
+  border-radius: 5px; /* Slightly rounded corners for a softer look */
+}
+
+.transport-controls button:hover {
+  background-color: #45a049; /* Darker shade of green on hover */
+  transform: scale(1.1); /* Slightly enlarges the button */
+}
+
+.transport-controls button:focus {
+  outline: none; /* Removes the outline to keep the design clean */
+}
   
   .song-info {
     flex-grow: 1;

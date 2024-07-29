@@ -10,7 +10,8 @@
       <div class="sort-line">
         <div style="width:20%">
           <select v-model="sortType">
-            <option value="dateDesc">Date de publication (plus récentes)</option>
+
+            <option default value="dateDesc">Date de publication (plus récentes)</option>
             <option value="dateAsc">Date de publication (plus anciennes)</option>
             <option value="alphabetical">Ordre alphabétique</option>
             <option value="unalphabetical">Ordre anti-alphabétique</option>
@@ -99,7 +100,7 @@ export default {
 
 .sidebar {
   position: fixed;
-  z-index: 0; /* Set to negative to ensure it's behind other positioned elements */
+  z-index: 1; /* Set to negative to ensure it's behind other positioned elements */
   bottom: 50px; /* Extend to 50px above the bottom edge of the viewport */
   flex: 0 0 auto; /* Do not grow, do not shrink, initial width auto */
   height: 100vh;
@@ -168,4 +169,32 @@ export default {
   color: var(--light-color);
   transition: 0.3s ease;
 }
+
+select {
+  background-color: rgb(122, 122, 122); /* Dark grey background */
+  color: white; /* White text color */
+  padding: 10px; /* Padding for a larger click area and visual appeal */  
+  border-radius: 8px; /* Rounded corners */
+  border: 2px solid rgba(255, 255, 255, 0.2); /* Slightly transparent white border */
+  outline: none; /* Remove the default focus outline */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+  transition: all 0.3s ease; /* Smooth transition for interactions */
+}
+
+select:hover {
+  background-color: #505050; /* Slightly lighter grey on hover for feedback */
+}
+
+select:focus {
+  box-shadow: 0 0 0 2px #007BFF; /* Blue glow effect when focused */
+}
+
+/* Style options */
+select option {
+  background-color: #333; /* Dark background for options */
+  color: #fff; /* White text for options */
+}
+
 </style>
