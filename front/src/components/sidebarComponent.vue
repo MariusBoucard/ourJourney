@@ -1,34 +1,48 @@
 <template>
-    <div class="sidebar">
+    <div class="sidebar" @mouseover="menuOpen = true" @mouseleave="menuOpen = false">
+      <div style="margin-top :150px" class="itemLine">
+        <!-- Recherche -->
+        <img src="assets/loupe.png" alt="search" class="roundedPic">
+        <div v-if="this.menuOpen" class="lineName">
+          <input v-model="searchSong" class="beautifulInput"/>
+        </div>
+      </div>
       <div class="titleFix">
 
         <div v-if="this.menuOpen" class="sidebar-title">Title</div>
       </div>
-      <div class="itemLine">
-        <!-- Recherche -->
-        <img src="path/to/image.jpg" alt="search" class="roundedPic">
-        <span v-if="this.menuOpen" class="lineName">Username</span>
-      </div>
+ 
      
       
       <div class="menu-items">
         <!-- Artists linktree -->
         <a href="#">
           <div class="itemLine">
-        <img src="path/to/image.jpg" alt="search" class="roundedPic">
-        <span v-if="this.menuOpen" class="lineName">Username</span>
-      </div>
+            <img src="logos/spotify.png" alt="search" class="roundedPic">
+            <span v-if="this.menuOpen" class="lineName">Ballzy</span>
+        </div>
         </a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
+        <a href="#">
+          <div class="itemLine">
+            <img src="logos/deezer.png" alt="search" class="roundedPic">
+            <span v-if="this.menuOpen" class="lineName">Ballzy</span>
+        </div>
+        </a>    
+        
+        <a href="#">
+          <div class="itemLine">
+            <img src="assets/bf.jpg" alt="search" class="roundedPic">
+            <span v-if="this.menuOpen" class="lineName">Ballzy</span>
+        </div>
+        </a> 
 
         <a href="#">
           <div class="itemLine">
             <!-- brutal webSite -->
-        <img src="path/to/image.jpg" alt="search" class="roundedPic">
-        <span v-if="this.menuOpen" class="lineName">Username</span>
+        <img src="assets/insta.png" alt="search" class="roundedPic">
+        <span v-if="this.menuOpen" class="lineName">instagram</span>
       </div>
-        </a>*
+        </a>
 
       </div>
 
@@ -47,6 +61,7 @@
     data() {
       return {
         menuOpen: false,
+        searchSong: '', // This property is bound to the input
       };
     },
     computed: {
@@ -67,14 +82,28 @@
   </script>
   
   <style scoped>
+  .beautifulInput {
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.beautifulInput:focus {
+  outline: none;
+  border-color: #007BFF;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
   .sidebar {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between; /* This will push the menu to the bottom */
-
+    background-color: #747474;
     padding: 20px;
     height: 100vh;
+    z-index: 0;
   }
   
   .sidebar-title {
@@ -123,6 +152,7 @@
   .menu-items a {
     text-decoration: none;
     color: #333;
+    width:100%;
   }
   
   /* When menu is open, show username and adjust styles */
@@ -133,4 +163,22 @@
   .menu-open.hamburger-menu {
     transform: rotate(90deg);
   }
+  .roundedPic{
+    width : 50px;
+    border-radius: 50%;
+  }
+
+.itemLine {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center; /* This will vertically center the items in the container */
+  gap: 10px; /* Adds some space between the image and the text */
+}
+
+.lineName {
+  /* Additional styling for the text */
+  font-size: 16px; /* Example font size, adjust as needed */
+  color: #333; /* Example text color, adjust as needed */
+}
   </style>

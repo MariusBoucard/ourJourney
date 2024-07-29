@@ -32,7 +32,10 @@
           </g>
           </svg>
         </button>
-        <router-link :to="`/song/${carte.songbacktitle}`" class="button-like-link">go to page</router-link>    
+        <router-link :to="`/song/${carte.songbacktitle}`" class="button-like-link">
+            <img src="/assets/fleche.png" alt="spotify" style="width: 20px; height: 20px;"> 
+
+        </router-link>    
         <router-link :to="`/song/linktree/${carte.songbacktitle}`" class="button-like-link">See on Social Networks</router-link>      </div>
     </div>
   </template>

@@ -7,6 +7,33 @@
      <sidebarComponent />
      </div>
      <div class="main-content">
+      <div class="sort-line">
+        <div style="width:20%">
+          <select v-model="sortType">
+            <option value="dateDesc">Date de publication (plus récentes)</option>
+            <option value="dateAsc">Date de publication (plus anciennes)</option>
+            <option value="alphabetical">Ordre alphabétique</option>
+            <option value="unalphabetical">Ordre anti-alphabétique</option>
+          </select>
+        </div>
+        <div style="display: flex;">
+          <div class="nameDiv">
+            Belle demoiselle
+          </div>
+          <div class="nameDiv">
+            Ballzzy
+          </div>
+          <div class="nameDiv">
+            Marius
+          </div>
+        </div>
+         <div style="width:20%">
+          <select v-model="selectedArtist">
+            <option v-for="artist in existingArtists" :key="artist" :value="artist">{{ artist }}</option>
+          </select>
+        </div>
+        </div>
+      <hr style="width :70%;margin:auto;"/>
       <div class="image-container">
       <img src="assets/banderole.png"/>
       <button class="button-overlay">Dernière chanson publiée</button>
@@ -71,12 +98,13 @@ export default {
 }
 
 .sidebar {
-  /* width: auto; Removed to allow flex-basis to control the width */
+  position: fixed;
+  z-index: 0; /* Set to negative to ensure it's behind other positioned elements */
+  bottom: 50px; /* Extend to 50px above the bottom edge of the viewport */
   flex: 0 0 auto; /* Do not grow, do not shrink, initial width auto */
-  overflow-y: auto;
+  height: 100vh;
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
   margin: 0;
-  /* Set a specific width if needed, e.g., flex-basis: 200px; */
-  /* Additional styling for the sidebar */
 }
 
 .main-content {
@@ -119,5 +147,25 @@ export default {
 .button-overlay:hover{
   background-color: rgba(255, 255, 255, 0.5); /* Add a semi-transparent background on hover */
   color: black; /* Change text color on hover */
+}
+
+.sort-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  margin:auto;
+  padding: 10px;
+}
+
+.nameDiv {
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.nameDiv:hover {
+  background-color: var(--deep-grey);
+  color: var(--light-color);
+  transition: 0.3s ease;
 }
 </style>

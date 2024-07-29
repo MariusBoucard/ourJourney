@@ -11,19 +11,23 @@
       <div class="platforms">
         <a v-if="isOnPlateform('yt')" :href="songLinks.yt" class="platform">
             <img src="/logos/youtube.png" class="roundedImage">
-            {{ song.titre }} - YouTube</a>
+            <span class="text">
+              {{ song.titre }} - YouTube
+            </span>
+        </a>
+
         <a  v-if="isOnPlateform('spotify')" :href="songLinks.spotify" class="platform">
             <img src="/logos/spotify.png" class="roundedImage">
-            Spotify</a>
+            {{ song.titre }} - Spotify</a>
         <a  v-if="isOnPlateform('deezer')" :href="songLinks.deezer" class="platform">
             <img src="/logos/deezer.png" class="roundedImage">
-            Deezer</a>
+            {{ song.titre }} - Deezer</a>
         <a  v-if="isOnPlateform('soundcloud')" :href="songLinks.soundcloud" class="platform">
             <img src="/logos/soundcloud.png" class="roundedImage">
-            SoundCloud</a>
+            {{ song.titre }} - SoundCloud</a>
         <a  v-if="isOnPlateform('apple')" :href="songLinks.apple" class="platform">
             <img src="/logos/apple.png" class="roundedImage">
-            Apple Music</a>
+            {{ song.titre }} - Apple Music</a>
       </div>
   
     </div>
@@ -103,15 +107,31 @@
   gap: 10px;
 }
 .song-cover {
+  margin-top: 50px;
   width: 200px;
   height: 200px;
 }
 .platforms { /* Corrected from .plateforms to .platforms */
   display: flex;
+  width:40%;
   flex-direction: column;
+  margin-bottom: 50px;
+}
+.platforms a {
+  background-color: red; /* Assuming this is your default link color */
+}
+
+.platforms a:nth-child(odd) {
+  background-color: black;
+  color : white; /* Targets every other link starting from the first */
 }
 .platform {
-  display: block;
+  display: flex;
+  align-items: center;
+  text-decoration: none; /* Optional: removes underline from links */
+  color: inherit; 
+  border-radius: 10px;;
+  margin-bottom: 20px;
 }
 .cover{
     height:100%;
@@ -120,7 +140,12 @@
 .roundedImage {
     width: 50px;
     height: 50px;
+    margin : 10px;
     border-radius: 50%;
+}
+.text {
+  flex-grow: 1;
+  text-align: center; /* Adjusts text alignment */
 }
 
   </style>

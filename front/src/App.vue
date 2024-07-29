@@ -1,8 +1,10 @@
 <template>
-  <navComponent></navComponent>
+ <navComponent style="z-index: 1000; position: relative;"></navComponent>
 
-  <router-view/>
-  <playerComponent></playerComponent>
+<!-- Assuming router-view is a direct parent of the sidebar -->
+<router-view style="z-index: 1; position: relative;"/>
+
+<playerComponent style="z-index: 2;"></playerComponent>
 </template>
 <script>
 import navComponent from './components/navComponent.vue';

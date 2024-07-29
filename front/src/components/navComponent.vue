@@ -1,6 +1,15 @@
 <template>
-    <div>
+    <div style="z-index: 1000;">
+      <div v-if="showInfo" class="info-div">
+       <h1>
+         A propos
+       </h1>
+
+Avec les copains, on écrit des chansons depuis une dizaine d'années, et j'ai peur d'en perdre, car aux fur et à mesure où elles s'amoncellent, elles se perdent dans les entrailles de nos mémoires et de nos disques durs, ce passé écrit s'efface. L'idée est donc de tout centraliser ici. En un site, centralisant toutes les plateformes et toutes les collaborations. La quasi intégralité de ces projets est le fruit du travail de plusieurs personnes, vous retrouverez donc l'ensemble des artistes présents dans les pages correspondantent aux chansons/albums. En espérant que cela vous plaise et en vous souhaitant une bonne écoute ! Marius Boucard Bocciarelli
+
+      </div>
       <nav class="topbar">
+      
         <div class="logo-and-title">
 
           <img alt="logo" style="height:50px; margin : auto" src="/assets/pioneerWhite.png">
@@ -14,10 +23,7 @@
         </div>
         <button class="info-toggle" @click="toggleInfoDiv">☰</button>
       </nav>
-      <div v-if="showInfo" class="info-div">
-        <!-- Extra information goes here -->
-        Extra information content...
-      </div>
+      
     </div>
   </template>
   
@@ -70,23 +76,18 @@
   .info-toggle {
     cursor: pointer;
     background: none;
-    border: none;
+    border: 1px solid #fff;
+    border-radius: 5px;
+  
     color: white;
-    font-size: 24px;
+    font-size: 40px;
   }
   
   .info-div {
     position: relative;
-    top: 0;
-    right: 0;
-    width: 300px;
-    height: 100px;
-    background-color: #f4f4f4;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+   
+    background-color: #9e9e9e;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    transform: translateX(100%);
     transition: transform 0.3s ease;
   }
   
