@@ -24,7 +24,7 @@
       
       
       </router-link>          
-              <button class="buttonLink" title="Jouer la chanson">
+              <button class="buttonLink" @click="playSong()" title="Jouer la chanson">
               <svg fill="#000000" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 	 viewBox="0 0 512 512" xml:space="preserve">
               <g>
                 <g>
@@ -72,7 +72,11 @@ export default {
       }
     },
     methods: {
-      getPathCover(path){
+      playSong() {
+        this.$store.commit('setCurrentSongLink', this.baseURL +"/song/"+ this.carte.songbacktitle + ".wav");
+        this.$store.commit('setCurrentSong', this.carte);
+      },
+     getPathCover(path){
         if(path === undefined){
           return ''
         }

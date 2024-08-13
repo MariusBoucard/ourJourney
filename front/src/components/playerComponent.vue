@@ -9,10 +9,10 @@
       <source :src="songLink" type="audio/wav">
       Your browser does not support the audio element.
     </audio>
-    <img class="album-cover" :src="currentSong.albumCover" alt="Album Cover">
+    <img class="album-cover" :src="coverPath" alt="Album Cover">
 
     <div class="song-info">
-      <span>{{ currentSong.name }}</span>
+      <span>{{ currentSong.titre }}</span>
     </div>
     <div class="transport-controls">
       <button @click="previousSong">
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import { API_BASE_URL } from '/axios';
+import { mapState } from 'vuex';
 
 export default {
   watch: {
@@ -48,17 +50,25 @@ export default {
   data() {
     return {
       playlist: [],
-      songLink : "http://localhost:3000/files/song/backhome.wav",
-      currentSong: {
-        name: 'Back Home',
-        albumCover: 'http://localhost:3000/files/cover/backhome.png',
-      },
+    //  songLink : "http://localhost:3000/files/song/backhome.wav",
       isPlaying: false,
       songDuration: 180, // in seconds
       currentTime: 0, // in seconds,
+      baseURL : API_BASE_URL
       };
   },
   computed: {
+    ...mapState({
+      // This creates a computed property named `songLink` that is linked to the state in the Vuex store
+      songLink: state => state.currentSongLink,
+      currentSong: state => state.currentSong,
+      coverPath(){
+        const pathSegments = this.currentSong.pathcover.split('/');
+  // Get the last segment of the array, which is the filename
+  const filename = pathSegments[pathSegments.length - 1];
+  // Construct the full URL by appending the filename to the baseURL and "/cover/"
+  return this.baseURL + "/cover/" + filename;      }
+    }),
     progressBarWidth() {
       return (this.currentTime / this.songDuration) * 100;
     },

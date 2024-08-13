@@ -1,6 +1,5 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
-import url from 'url';
 import { spawn } from 'child_process';
 
 const createWindow = () => {
