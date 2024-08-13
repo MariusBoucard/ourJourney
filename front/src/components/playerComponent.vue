@@ -91,7 +91,7 @@ export default {
       currentSong: state => state.currentSong,
       playlist: state => state.playlist,
       coverPath(){
-        if(this.currentSong.pathcover === undefined){
+        if(this.currentSong === undefined || this.currentSong.pathcover === undefined){
           return ''
         }
         const pathSegments = this.currentSong.pathcover.split('/');

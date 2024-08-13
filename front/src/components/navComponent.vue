@@ -12,7 +12,7 @@ Avec les copains, on écrit des chansons depuis une dizaine d'années, et j'ai p
       
         <div class="logo-and-title">
 
-          <img alt="logo" style="height:50px; margin : auto" src="/assets/pioneerWhite.png">
+          <img alt="logo" style="height:50px; margin : 5px" src="/assets/pioneerWhite.png">
         </div>
         <div class="nav-links">
           <!-- <router-link to="/">Home</router-link>
@@ -43,55 +43,56 @@ Avec les copains, on écrit des chansons depuis une dizaine d'années, et j'ai p
   </script>
   
   <style>
-  .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    padding: 10px;
-  }
-  
-  .logo-and-title {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo-and-title img {
-    margin-right: 10px;
-  }
-  
-  .title{
-    color : white !important;
-    font-size: 24px;
-    font-weight: bold;
+nav-container {
+  z-index: 1000;
+  position: relative;
+}
 
-  }
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .info-toggle {
-    cursor: pointer;
-    background: none;
-    border: 1px solid #fff;
-    border-radius: 5px;
-  
-    color: white;
-    font-size: 40px;
-  }
-  
-  .info-div {
-    position: relative;
-   
-    background-color: #9e9e9e;
-    padding: 20px;
-    transition: transform 0.3s ease;
-  }
-  
-  .info-div.active {
-    transform: translateX(0);
-  }
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #FFF;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.info-div {
+  background: linear-gradient(rgba(99, 99, 99, 1), rgba(200, 200, 200, 0.6)),
+              repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.2) 10px,
+                rgba(255, 255, 255, 0.2) 20px
+              );
+  background-size: cover; /* Ensure the div is fully covered */
+  backdrop-filter: blur(5px);
+  color: white;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.info-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+}
+
+.info-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
   </style>

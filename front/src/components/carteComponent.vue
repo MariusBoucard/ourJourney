@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-      <div class="card-content">
+      <div class="card-content" @click.stop="navigateToSong(carte.songbacktitle)">
         <img :src=getPathCover(carte.pathcover) alt="Picture" class="card-img">
         <h2>{{ carte.titre }}</h2>
         <p>{{ carte.description }}</p>
@@ -14,7 +14,7 @@
           <div class="card-actions">
             
             <div style="height:60px; display: flex; justify-content: space-between; width:70%; margin: auto; margin-bottom: 20px;margin-top:20px;" >
-          <button class="buttonLink" @click="addToPlaylist()" title="Ajouter à la playlist">
+          <button class="buttonLink" @click.stop="addToPlaylist()" title="Ajouter à la playlist">
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
               <path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C 37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46 25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
               </svg>
@@ -24,7 +24,7 @@
       
       
       </router-link>          
-              <button class="buttonLink" @click="playSong()" title="Jouer la chanson">
+              <button class="buttonLink" @click.stop="playSong()" title="Jouer la chanson">
               <svg fill="#000000" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 	 viewBox="0 0 512 512" xml:space="preserve">
               <g>
                 <g>
@@ -72,6 +72,9 @@ export default {
       }
     },
     methods: {
+      navigateToSong(songbacktitle) {
+      this.$router.push(`/song/${songbacktitle}`);
+    },
       playSong() {
         this.$store.commit('setCurrentSongLink', this.baseURL +"/song/"+ this.carte.songbacktitle + ".wav");
         this.$store.commit('setCurrentSong', this.carte);
@@ -184,6 +187,7 @@ svg{
   backdrop-filter: blur(10px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.40);
+  cursor: pointer;
 }
 
 .card-img{

@@ -16,27 +16,39 @@
       
       <div class="menu-items">
         <!-- Artists linktree -->
-        <a href="#">
+   
+        <a href="https://open.spotify.com/intl-fr/artist/57s3WOuEzD9ueruw3QKrYU?si=In7yJiw_QUm9ZrUsU1LbHQ">
           <div class="itemLine">
             <img src="/logos/spotify.png" alt="search" class="roundedPic">
-            <span v-if="this.menuOpen" class="lineName">Ballzy sur Spotify</span>
+            <span v-if="this.menuOpen" class="lineName">Ballzzy- Spotify</span>
         </div>
-        </a>
-        <a href="#">
+        </a> 
+        <a href="https://deezer.page.link/YkXXz2ge6mAFZzxr8">
           <div class="itemLine">
             <img src="/logos/deezer.png" alt="search" class="roundedPic">
-            <span v-if="this.menuOpen" class="lineName">Ballzy sur Deezer</span>
+            <span v-if="this.menuOpen" class="lineName">Ballzy - Deezer</span>
         </div>
-        </a>    
-        
-        <a href="#">
+        </a>   
+        <a href="https://open.spotify.com/intl-fr/artist/1ihPL4eI2ThTMGhWiPVef0?si=wLLwpo2XS7WxKz8l3zOY6g">
+          <div class="itemLine">
+            <img src="/logos/spotify.png" alt="search" class="roundedPic">
+            <span v-if="this.menuOpen" class="lineName">Belle Demoiselle - Spotify</span>
+        </div>
+        </a>
+        <a href="https://deezer.page.link/TTWMro5dUvEUFU9W6">
+          <div class="itemLine">
+            <img src="/logos/deezer.png" alt="search" class="roundedPic">
+            <span v-if="this.menuOpen" class="lineName">Belle Demoiselle - Deezer</span>
+        </div>
+        </a>   
+        <a href="https://brutalfekal.fr/">
           <div class="itemLine">
             <img src="/assets/bf.jpg" alt="search" class="roundedPic">
             <span v-if="this.menuOpen" class="lineName">Brutal Fekal Website</span>
         </div>
         </a> 
 
-        <a href="#">
+        <a href="https://www.instagram.com/marius_bbs/">
           <div class="itemLine">
             <!-- brutal webSite -->
         <img src="/assets/insta.png" alt="search" class="roundedPic">

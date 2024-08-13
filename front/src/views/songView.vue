@@ -12,7 +12,13 @@
         </div>
         <img :src="getPathCover(song.pathcover)" alt="cover" class="cover">
        <div class="buttons">
-        <button >
+      
+        <button  @click="addToPlaylist()">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
+          <path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C 37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46 25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
+          </svg>
+                </button>
+                <button @click="playSong()" >
           <svg fill="#000000" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 	 viewBox="0 0 512 512" xml:space="preserve">
           <g>
             <g>
@@ -27,11 +33,6 @@
           </g>
           </svg>
          </button>
-        <button>
-          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
-          <path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C 37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46 25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
-          </svg>
-                </button>
        </div>
       </div>
       <div class="songInfo">
@@ -77,6 +78,17 @@ export default {
     };
     },
     methods : {
+      playSong() {
+        this.$store.commit('setCurrentSongLink', this.baseURL +"/song/"+ this.song.songbacktitle + ".wav");
+        this.$store.commit('setCurrentSong', this.song);
+      },
+      addToPlaylist() {
+        // const currentPlaylist = this.$store.state.playlist;
+        // currentPlaylist.push(this.carte);
+        this.$store.commit('addSongToPlaylist', this.song);
+        const currentPlaylist = this.$store.state.playlist;
+        console.log(currentPlaylist);
+      },
       formatSongDate(dateStr) {
       // Ensure the date string is in the expected format
       if (dateStr && dateStr.length === 8) {

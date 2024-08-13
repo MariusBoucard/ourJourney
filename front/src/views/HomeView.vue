@@ -18,15 +18,15 @@
           </select>
         </div>
         <div style="display: flex;">
-          <div class="nameDiv">
-            Belle demoiselle
-          </div>
-          <div class="nameDiv">
-            Ballzzy
-          </div>
-          <div class="nameDiv">
-            Marius
-          </div>
+          <div class="nameDiv" :class="{ 'glass-effect': isSelected('Belle demoiselle') }" @click="selectedName === 'Belle demoiselle' ? selectedName = '' : selectedName = 'Belle demoiselle'">
+    Belle demoiselle 
+  </div>
+  <div class="nameDiv" :class="{ 'glass-effect': isSelected('Ballzzy') }" @click="selectedName === 'Ballzzy' ? selectedName = '' : selectedName = 'Ballzzy'">
+    Ballzzy
+  </div>
+  <div class="nameDiv" :class="{ 'glass-effect': isSelected('Marius') }" @click="selectedName === 'Marius' ? selectedName = '' : selectedName = 'Marius'">
+    Marius
+  </div>
         </div>
          <div style="width:20%">
           <select v-model="selectedArtist">
@@ -61,6 +61,11 @@ export default {
     sidebarComponent,
     CarteComponent
   },
+  methods : {
+    isSelected(name) {
+      return this.selectedName === name;
+    }
+  },
   computed: {
     existingArtists(){
       return this.allSongs.map(song => song.artist).filter((value, index, self) => self.indexOf(value) === index)
@@ -70,11 +75,13 @@ export default {
       search: state => state.currentSearch
       }),
     songsToDisplay(){
-      if(this.search === ''){
-        return this.allSongs
-      }else{
-        const searchTerm = this.search.toLowerCase();
-    const matchedSongs = new Map();
+      
+      if(this.selectedName !== ''){
+        return this.allSongs.filter(song => song.artistes.toLowerCase().includes(this.selectedName.toLowerCase()))
+        }  
+
+            const searchTerm = this.search.toLowerCase();
+            const matchedSongs = new Map();
 
     // Helper function to search and add matches if not already added
     const searchAndAdd = (songs, field) => {
@@ -91,13 +98,29 @@ export default {
     searchAndAdd(this.allSongs, 'band');
     searchAndAdd(this.allSongs, 'artistes');
     searchAndAdd(this.allSongs, 'lyrics');
-
     // Convert the Map values to an array
-    return Array.from(matchedSongs.values());      }
+    let array =  Array.from(matchedSongs.values());  
+    switch (this.sortType) {
+      case 'dateDesc':
+        return array.sort((a, b) => new Date(b.date) - new Date(a.date));
+      case 'dateAsc':
+        return array.sort((a, b) => new Date(a.date) - new Date(b.date));
+      case 'alphabetical':
+        return array.sort((a, b) => a.titre.localeCompare(b.titre));
+      case 'unalphabetical':
+        return array.sort((a, b) => b.titre.localeCompare(a.titre));
+      default:
+        return array;
+    // Sort the array based on the selected sort type
+    }
+
     }
     },
   data(){
     return {
+      selectedName :'',
+      selectedArtist : '',
+      sortType: 'dateDesc',
       allSongs : [{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' } ]
     }
   },
@@ -118,6 +141,30 @@ export default {
   --dark-green: #064420;
   --deep-grey: #333333;
   --light-color: #ffffff;
+}
+.nameDiv {
+  cursor: pointer;
+  /* Your existing styles for .nameDiv */
+}
+
+.glass-effect {
+  background: rgba(0, 0, 0, 0.5); /* Darker background for glass effect */
+  backdrop-filter: blur(8px); /* Increase blur for stronger effect */
+  border: 1px solid rgba(255, 255, 255, 0.25); /* Adjust border color if needed */
+  color:white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow */
+
+}
+
+.nameDiv:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  background: rgba(0, 0, 0, 0.7); /* Optional: Darker background on hover */
+}
+
+/* If you want the hover effect to only apply to selected items, you can combine selectors */
+.nameDiv.glass-effect:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+  background: rgba(0, 0, 0, 0.7); /* Darker background on hover */
 }
 .cardsComponent{
   display: grid;
@@ -204,9 +251,10 @@ export default {
   cursor: pointer;
 }
 .nameDiv:hover {
-  background-color: var(--deep-grey);
-  color: var(--light-color);
-  transition: 0.3s ease;
+  /* background-color: var(--deep-grey);
+  color: var(--light-color); */
+  transition: transform 0.3s ease;
+  color: white;
 }
 
 select {
