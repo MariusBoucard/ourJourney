@@ -4,7 +4,7 @@
         <!-- Recherche -->
         <img src="/assets/loupe.png" alt="search" class="roundedPic">
         <div v-if="this.menuOpen" class="lineName">
-          <input v-model="searchSong" class="beautifulInput" placeholder="Chercher une chanson"/>
+          <input v-model="searchSong" class="beautifulInput"  @input="updateSearchTerm" placeholder="Chercher une chanson"/>
         </div>
       </div>
       <div class="titleFix">
@@ -57,6 +57,8 @@
   </template>
   
   <script>
+  import { mapActions, mapGetters } from 'vuex';
+
   export default {
     data() {
       return {
@@ -65,6 +67,7 @@
       };
     },
     computed: {
+      ...mapGetters(['search']),
       hamburgerMenuClass() {
           if(this.menuOpen){
             return 'hamburger-menu menu-open';
@@ -74,6 +77,10 @@
       
     }},
     methods: {
+      ...mapActions(['updateSearch']),
+    updateSearchTerm() {
+      this.updateSearch(this.searchSong);
+    },
       toggleMenu() {
         this.menuOpen = !this.menuOpen;
       },

@@ -40,7 +40,7 @@
       <button class="button-overlay">Dernière chanson publiée</button>
     </div>
         <div class="cardsComponent">
-          <template v-for="card in allSongs" :key="card.title">
+          <template v-for="card in songsToDisplay" :key="card.title">
             <CarteComponent :carteValue="card" />
           </template>
         </div>
@@ -54,13 +54,48 @@
 import CarteComponent from '@/components/carteComponent.vue';
 import sidebarComponent from '@/components/sidebarComponent.vue';
 import  AxiosInstance  from '../../axios';
-
+import { mapState } from 'vuex';
 export default {
   name: 'HomeView',
   components: {
     sidebarComponent,
     CarteComponent
   },
+  computed: {
+    existingArtists(){
+      return this.allSongs.map(song => song.artist).filter((value, index, self) => self.indexOf(value) === index)
+    },
+    ...mapState({
+      // This creates a computed property named `songLink` that is linked to the state in the Vuex store
+      search: state => state.currentSearch
+      }),
+    songsToDisplay(){
+      if(this.search === ''){
+        return this.allSongs
+      }else{
+        const searchTerm = this.search.toLowerCase();
+    const matchedSongs = new Map();
+
+    // Helper function to search and add matches if not already added
+    const searchAndAdd = (songs, field) => {
+      songs.forEach(song => {
+        const fieldValue = song[field].toLowerCase();
+        if (fieldValue.includes(searchTerm) && !matchedSongs.has(song.songbacktitle)) {
+          matchedSongs.set(song.songbacktitle, song);
+        }
+      });
+    };
+
+    // Search in 'title', then 'band', then 'artistes', then 'lyrics'
+    searchAndAdd(this.allSongs, 'titre');
+    searchAndAdd(this.allSongs, 'band');
+    searchAndAdd(this.allSongs, 'artistes');
+    searchAndAdd(this.allSongs, 'lyrics');
+
+    // Convert the Map values to an array
+    return Array.from(matchedSongs.values());      }
+    }
+    },
   data(){
     return {
       allSongs : [{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' },{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' } ]

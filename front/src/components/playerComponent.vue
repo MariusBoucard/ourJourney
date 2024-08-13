@@ -1,5 +1,6 @@
 <template>
   <div class="player">
+   
     <div class="progress-container" @click="seekSong($event)">
       <div class="progress-bar"  ref="progressBar" :style="{ width: progressBarWidth + '%' }"></div>
       <div class="progress-dot" @mousedown="startDrag" :style="{ left: progressBarWidth + '%' }"></div>
@@ -27,34 +28,60 @@
   <button @click="nextSong">
     <img style="height:100%;" src="/assets/player/chansonApres.svg" alt="Dernière chanson">
   </button>
-    </div>
-    <div class="playlist-div">
-      Playlist
+    </div> 
+    <div v-if="isHovering" class="hover-div" 
+       @mouseover="cancelCloseHoverDiv" 
+       @mouseleave="scheduleCloseHoverDiv">
+
+        <div v-for="element,index in localPlaylist" :key="element.id" class="song-row">
+          <img :src="getCoverURL(element)" alt="Cover" style="width: 50px; height: 50px;">
+          {{ element.titre }}
+          <img class="trash" src="/assets/thrash.svg" alt="Remove from playlist" @click="removeFromPlaylist(index)">
+        </div>
+   
+  </div>
+    <div class="playlist-div" 
+         @mouseover="openHoverDiv" 
+         @mouseleave="scheduleCloseHoverDiv">
+      File de lecture
+      {{ playlist.length }}
     </div>
   </div>
 </template>
 
 <script>
+//import draggable from 'vue-draggable-next';
+
 import { API_BASE_URL } from '/axios';
 import { mapState } from 'vuex';
 
 export default {
+  components: {
+   // draggable,
+  },
   watch: {
     // Watch for changes in songLink
     songLink(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.loadNewSong();
       }
-    }
+    },
+    playlist: {
+      handler(newVal) {
+        this.localPlaylist = [...newVal];
+      },
+      immediate: true,
+    },
   },
   data() {
     return {
-      playlist: [],
     //  songLink : "http://localhost:3000/files/song/backhome.wav",
       isPlaying: false,
       songDuration: 180, // in seconds
       currentTime: 0, // in seconds,
-      baseURL : API_BASE_URL
+      baseURL : API_BASE_URL,
+      isHovering : false,
+      localPlaylist  : [],
       };
   },
   computed: {
@@ -62,7 +89,11 @@ export default {
       // This creates a computed property named `songLink` that is linked to the state in the Vuex store
       songLink: state => state.currentSongLink,
       currentSong: state => state.currentSong,
+      playlist: state => state.playlist,
       coverPath(){
+        if(this.currentSong.pathcover === undefined){
+          return ''
+        }
         const pathSegments = this.currentSong.pathcover.split('/');
   // Get the last segment of the array, which is the filename
   const filename = pathSegments[pathSegments.length - 1];
@@ -80,6 +111,11 @@ export default {
     }
   },
   methods: {
+    getCoverURL(song){
+      const pathSegments = song.pathcover.split('/');
+      const filename = pathSegments[pathSegments.length - 1];
+      return this.baseURL + "/cover/" + filename;
+    },
     seekSong(event) {
       const progressBar = this.$el.querySelector('.progress-container');
       const clickX = event.offsetX;
@@ -103,6 +139,18 @@ export default {
           this.playSong(); // Automatically play the new song if isPlaying is true
         }
       }
+    },
+    openHoverDiv() {
+      clearTimeout(this.closeHoverTimeout); // Clear any pending timeout to close the hover-div
+      this.isHovering = true;
+    },
+    scheduleCloseHoverDiv() {
+      this.closeHoverTimeout = setTimeout(() => {
+        this.isHovering = false;
+      }, 500); // Delay before setting isHovering to false, allowing time to move to hover-div
+    },
+    cancelCloseHoverDiv() {
+      clearTimeout(this.closeHoverTimeout); // Cancel the scheduled closing when mouse enters hover-div
     },
     togglePlay() {
       this.isPlaying = !this.isPlaying;
@@ -161,14 +209,89 @@ export default {
       // Update your progress bar's width here based on the progress percentage
       this.progressBarWidth = progress; // Assuming you have a progressBarWidth data property controlling the width
     },
+    playNextSong() {
+      if(this.localPlaylist.length === 0){
+        return;
+      }
+      this.$store.commit('setCurrentSongLink', this.baseURL +"/song/"+ this.localPlaylist[0].songbacktitle + ".wav");
+      this.$store.commit('setCurrentSong', this.localPlaylist[0]);
+            this.removeFromPlaylist(0);
+    },
+    removeFromPlaylist(index) {
+      // Directly manipulate and then update Vuex store
+      let updatedPlaylist = this.localPlaylist.filter((_, i) => i !== index);
+      this.updatePlaylistStore(updatedPlaylist);
+    },
+    updatePlaylist() {
+      // Call this method after reordering
+      this.updatePlaylistStore(this.localPlaylist);
+    },
+    updatePlaylistStore(updatedPlaylist) {
+      // Dispatch an action or commit a mutation to update the store
+      this.$store.commit('setPlaylist', updatedPlaylist);
+    },
   },
   mounted() {
     this.loadNewSong();
+    const audio = this.$refs.audioPlayer;
+    if (audio) {
+      audio.addEventListener('ended', this.playNextSong);
+    }
   },
+  beforeUnmount() {
+    // Don't forget to remove the event listener when the component is destroyed
+    const audio = this.$refs.audioPlayer;
+    if (audio) {
+      audio.removeEventListener('ended', this.playNextSong);
+    }
+  },
+
+
 };
 </script>
 
 <style scoped>
+.trash {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;;
+  cursor: pointer;
+}
+.hover-div {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1); /* Slight white with transparency for the glass effect */
+  backdrop-filter: blur(10px); /* Blur effect for the background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 20px; /* Padding around the content */
+  max-height: 300px; /* Maximum height before scrolling */
+  overflow-y: auto; /* Enable vertical scrolling if content is too big */
+  border: 1px solid rgba(255, 255, 255, 0.18); 
+  color : black;
+  padding: 10px;
+  /* Adjust the positioning as needed */
+  bottom: 120%; 
+  height : 200%;
+  width: 40%;
+  right: 0;
+  z-index: 10;
+}
+
+.song-row {
+  padding: 5px 0;
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Align items vertically in the center */
+  justify-content: space-between; /* Distribute space between items */
+  background-color: rgba(255, 255, 255, 0.1); /* Glassmorphism effect */
+  backdrop-filter: blur(10px); /* Blur effect for the background */
+  border-radius: 10px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  /* Additional styling */
+}
+
+.song-row:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Slightly change background color on hover */
+}
 /* Existing styles */
 .progress-container {
   position: absolute;

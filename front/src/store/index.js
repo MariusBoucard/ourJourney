@@ -4,7 +4,8 @@ export default createStore({
   state: {
     currentSong: '',
     currentSongLink: '',
-    currentPlaylist: [] // Add this line
+    currentSearch: '',
+    playlist: [] // Add this line
   },
   getters: {
     getCurrentSong(state) {
@@ -14,18 +15,27 @@ export default createStore({
       return state.currentSongLink;
     },
     getCurrentPlaylist(state) { // Add this getter
-      return state.currentPlaylist;
+      return state.playlist;
     }
   },
   mutations: {
     setCurrentSong(state, song) {
       state.currentSong = song;
     },
+    addSongToPlaylist(state, song) {
+      // Create a new array with the new song added
+      const newPlaylist = [...state.playlist, song];
+      // Replace the old playlist with the new array
+      state.playlist = newPlaylist;
+    },
     setCurrentSongLink(state, link) {
       state.currentSongLink = link;
     },
-    setCurrentPlaylist(state, playlist) { // Add this mutation
-      state.currentPlaylist = playlist;
+    setPlaylist(state, playlist) { // Add this mutation
+      state.playlist = playlist;
+    },
+    setCurrentSearch(state, search) {
+      state.currentSearch = search;
     }
   },
   actions: {
@@ -35,8 +45,11 @@ export default createStore({
     updateSongLink({ commit }, link) {
       commit('setCurrentSongLink', link);
     },
-    updateCurrentPlaylist({ commit }, playlist) { // Add this action
+    updatePlaylist({ commit }, playlist) { // Add this action
       commit('setCurrentPlaylist', playlist);
+    },
+    updateSearch({ commit }, search) {
+      commit('setCurrentSearch', search);
     }
   },
   modules: {
