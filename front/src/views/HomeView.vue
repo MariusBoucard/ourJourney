@@ -95,22 +95,26 @@ export default {
 }
 .layout {
   display: flex;
-  height: calc(100vh - /* Topbar height + Footer height */);
 }
 
 .sidebar {
   position: fixed;
   z-index: 1; /* Set to negative to ensure it's behind other positioned elements */
-  bottom: 50px; /* Extend to 50px above the bottom edge of the viewport */
+  bottom: 0px; /* Extend to 50px above the bottom edge of the viewport */
   flex: 0 0 auto; /* Do not grow, do not shrink, initial width auto */
   height: 100vh;
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
   margin: 0;
+  box-shadow: 
+    1px 1px 2px #e5e5e5, /* Lighter shade */
+    2px 2px 4px #cacaca, /* Medium shade */
+    3px 3px 6px #a7a7a7, /* Darker shade */
+    4px 4px 8px #858585; /* Darkest shade */  
 }
 
 .main-content {
   flex-grow: 1; /* Takes up the remaining space */
-  background-color: #d3d3d3;
+  background-color: #e0e0e0;
   /* Additional styling for the main content area */
 }
 
@@ -171,16 +175,19 @@ export default {
 }
 
 select {
-  background-color: rgb(122, 122, 122); /* Dark grey background */
-  color: white; /* White text color */
-  padding: 10px; /* Padding for a larger click area and visual appeal */  
-  border-radius: 8px; /* Rounded corners */
-  border: 2px solid rgba(255, 255, 255, 0.2); /* Slightly transparent white border */
+  background-color: rgba(139, 127, 127, 0.438); /* Semi-transparent background for glass effect */
+  color: white; /* White text color for contrast */
+  padding: 10px; /* Padding for a larger click area and visual appeal */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  border: 2px solid rgba(255, 255, 255, 0.3); /* Adjusted border for glass effect */
   outline: none; /* Remove the default focus outline */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  font-weight: bold; /* Bold text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), /* Enhanced shadow for depth */
+               inset 0 4px 4px rgba(255, 255, 255, 0.2); /* Inner glow for a more pronounced glass effect */
+  font-weight: bold; /* Bold text for readability */
   cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
   transition: all 0.3s ease; /* Smooth transition for interactions */
+  backdrop-filter: blur(10px); /* Blur effect for glassmorphism */
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
 }
 
 select:hover {

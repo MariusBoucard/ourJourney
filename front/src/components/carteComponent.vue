@@ -9,41 +9,39 @@
           <p>{{ carte.support }}</p>
           <p>{{ formatDate(carte.date) }}</p>
           <p>{{ carte.genre }}</p>
-        </div>
-      </div>
-      <div class="card-actions">
-        <div style="margin-top: 20px; margin-bottom: 20px;">
-
-<router-link :to="`/song/linktree/${carte.songbacktitle}`" class="buttonLink" width="100px">
-  <img src="/assets/headphone.png" alt="spotify" style="height:30px"> 
-
-
-</router-link>    
-</div>
-        <div style="height:60px; display: flex; justify-content: space-between; width:50%; margin: auto; margin-bottom: 10px;">
-                    <button class="buttonLink" >
-          <svg fill="#000000" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 	 viewBox="0 0 512 512" xml:space="preserve">
-          <g>
-            <g>
-              <path d="M256,0C114.608,0,0,114.608,0,256s114.608,256,256,256s256-114.608,256-256S397.392,0,256,0z M256,496
-                C123.664,496,16,388.336,16,256S123.664,16,256,16s240,107.664,240,240S388.336,496,256,496z"/>
-            </g>
-          </g>
-          <g>
-            <g>
-              <path d="M176.416,129.792v252.416L395.024,256L176.416,129.792z M192.416,157.504L363.024,256l-170.608,98.496V157.504z"/>
-            </g>
-          </g>
-          </svg>
-         </button>
-        <button class="buttonLink">
-          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
-          <path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C 37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46 25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
-          </svg>
-                </button>
-        <button class="buttonLink">
-
-          <router-link :to="`/song/${carte.songbacktitle}`" class="buttonLink">
+          </div>
+          </div>
+          <div class="card-actions">
+            
+            <div style="height:60px; display: flex; justify-content: space-between; width:70%; margin: auto; margin-bottom: 20px;margin-top:20px;" >
+          <button class="buttonLink" title="Ajouter à la playlist">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
+              <path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C 37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46 25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
+              </svg>
+              </button>
+                <router-link :to="`/song/linktree/${carte.songbacktitle}`" class="buttonLink" width="100px" title="Autres plateformes">
+        <img src="/assets/headphone.png" alt="spotify" style="height:30px"> 
+      
+      
+      </router-link>          
+              <button class="buttonLink" title="Jouer la chanson">
+              <svg fill="#000000" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 	 viewBox="0 0 512 512" xml:space="preserve">
+              <g>
+                <g>
+                  <path d="M256,0C114.608,0,0,114.608,0,256s114.608,256,256,256s256-114.608,256-256S397.392,0,256,0z M256,496
+                    C123.664,496,16,388.336,16,256S123.664,16,256,16s240,107.664,240,240S388.336,496,256,496z"/>
+                </g>
+              </g>
+              <g>
+                <g>
+                  <path d="M176.416,129.792v252.416L395.024,256L176.416,129.792z M192.416,157.504L363.024,256l-170.608,98.496V157.504z"/>
+                </g>
+              </g>
+              </svg>
+             </button>
+    <button class="buttonLink">
+      
+          <router-link :to="`/song/${carte.songbacktitle}`" class="buttonLink" title="Page chanson">
             <img src="/assets/fleche.png" alt="spotify" style="height:30px"> 
           
           </router-link>   
