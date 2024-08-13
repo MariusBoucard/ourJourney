@@ -1,10 +1,18 @@
 <template>
   <div class="player">
+    <div class="progress-container" @click="seekSong($event)">
+      <div class="progress-bar"  ref="progressBar" :style="{ width: progressBarWidth + '%' }"></div>
+      <div class="progress-dot" @mousedown="startDrag" :style="{ left: progressBarWidth + '%' }"></div>
+    </div>
+    <div class="time-display">{{  currentTimeFormatted }} / {{ durationFormatted }}</div>
+    <audio ref="audioPlayer" @loadedmetadata="updateSongDuration" @timeupdate="updateCurrentTime">
+      <source :src="songLink" type="audio/wav">
+      Your browser does not support the audio element.
+    </audio>
     <img class="album-cover" :src="currentSong.albumCover" alt="Album Cover">
 
     <div class="song-info">
       <span>{{ currentSong.name }}</span>
-      <div class="progress-bar" :style="{ width: progressBarWidth + '%' }"></div>
     </div>
     <div class="transport-controls">
       <button @click="previousSong">
@@ -29,47 +37,173 @@
 <script>
 
 export default {
-
+  watch: {
+    // Watch for changes in songLink
+    songLink(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.loadNewSong();
+      }
+    }
+  },
   data() {
     return {
+      playlist: [],
+      songLink : "http://localhost:3000/files/song/backhome.wav",
       currentSong: {
         name: 'Back Home',
         albumCover: 'http://localhost:3000/files/cover/backhome.png',
-        // Additional song details can be added here
       },
       isPlaying: false,
-      // Simulate song duration and current time
       songDuration: 180, // in seconds
-      currentTime: 0, // in seconds
-    };
+      currentTime: 0, // in seconds,
+      };
   },
   computed: {
     progressBarWidth() {
       return (this.currentTime / this.songDuration) * 100;
     },
+    currentTimeFormatted() {
+      return this.formatTime(this.currentTime);
+    },
+    durationFormatted() {
+      return this.formatTime(this.songDuration);
+    }
   },
   methods: {
+    seekSong(event) {
+      const progressBar = this.$el.querySelector('.progress-container');
+      const clickX = event.offsetX;
+      const duration = this.$refs.audioPlayer.duration;
+      const newTime = (clickX / progressBar.offsetWidth) * duration;
+      this.$refs.audioPlayer.currentTime = newTime;
+    },
+
+    formatTime(time) {
+      const minutes = Math.floor(time / 60);
+      const seconds = Math.floor(time % 60);
+      return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    },
+    loadNewSong() {
+      const audio = this.$refs.audioPlayer;
+      if (audio) {
+        audio.load(); // Reloads the audio element to fetch the new source
+        this.songDuration = 0;
+        this.currentTime = 0;
+        if (this.isPlaying) {
+          this.playSong(); // Automatically play the new song if isPlaying is true
+        }
+      }
+    },
     togglePlay() {
       this.isPlaying = !this.isPlaying;
-      // Here you would control the actual playback of the song
+      this.isPlaying ? this.playSong() : this.pauseSong();
     },
-    nextSong() {
-      // Logic to go to the next song
+    playSong() {
+      const audio = this.$refs.audioPlayer;
+      if (audio) {
+        audio.play();
+      }
     },
-    previousSong() {
-      // Logic to go to the previous song
+    pauseSong() {
+      const audio = this.$refs.audioPlayer;
+      if (audio) {
+        audio.pause();
+      }
     },
-    loadSong() {
-      // Fetch song details from backend and update `currentSong`
+    updateSongDuration() {
+      const audio = this.$refs.audioPlayer;
+      if (audio) {
+        this.songDuration = audio.duration;
+      }
+    },
+    updateCurrentTime() {
+      const audio = this.$refs.audioPlayer;
+      if (audio) {
+        this.currentTime = audio.currentTime;
+      }
+    },
+    startDrag() {
+      document.addEventListener('mousemove', this.dragging);
+      document.addEventListener('mouseup', this.stopDrag);
+    },
+    dragging(event) {
+      const progressBar = this.$refs.progressBar; // Ensure you have a ref="progressBar" on your progress-container
+      const bounds = progressBar.getBoundingClientRect();
+      console.log(bounds);
+      let progress =0;
+      if(bounds.width > 0){
+        progress = Math.min(Math.max(1, event.clientX - bounds.left), bounds.width) / bounds.width;
+      }
+      else{
+        bounds.width = 100;
+        progress = Math.min(Math.max(1, event.clientX - bounds.left), bounds.width) / bounds.width;
+
+      }
+      console.log(progress);
+      this.$refs.audioPlayer.currentTime = parseFloat(progress * this.$refs.audioPlayer.duration);
+      this.updateProgressBar(progress * 100); // Implement this method to visually update the progress bar based on drag
+    },
+    stopDrag() {
+      document.removeEventListener('mousemove', this.dragging);
+      document.removeEventListener('mouseup', this.stopDrag);
+    },
+    updateProgressBar(progress) {
+      // Update your progress bar's width here based on the progress percentage
+      this.progressBarWidth = progress; // Assuming you have a progressBarWidth data property controlling the width
     },
   },
   mounted() {
-    this.loadSong();
+    this.loadNewSong();
   },
 };
 </script>
 
 <style scoped>
+/* Existing styles */
+.progress-container {
+  position: absolute;
+  top :0px;
+  left:1%;
+  width: 98%;
+  height: 2px;
+  background-color: #ccc;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.progress-container:hover{
+  height: 4px;
+  transform: height 0.3s;
+}
+.progress-container:hover .progress-dot{
+  height: 16px;
+  width: 16px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #4caf50;
+}
+
+.progress-dot {
+  position: absolute;
+  top: -3px; /* Adjust based on the size of the dot */
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #4caf50;
+  transform: translateX(-50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.progress-dot:hover {
+  width: 16px;
+  height: 16px;
+}
+
+.time-display {
+  margin-top: 5px;
+  margin-left : 20px;
+}
 
 .player {
   position: fixed;
@@ -165,7 +299,7 @@ height: 100%;
 .album-cover {
   height: 75%;
 
-  margin-left: 10px;
+  margin-left: 20px;
   border-radius: 10px;
   aspect-ratio: 1;
   object-fit: cover;
@@ -182,4 +316,6 @@ height: 100%;
   cursor: pointer;
   width: 15%;
 }
+
+
 </style>
