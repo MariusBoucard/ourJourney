@@ -107,13 +107,13 @@ app.post('/api/register', async (req, res) => {
 
 
 // TODO
-app.post("/toggleSongPrivacy", async (req, res) => {
+app.post("/toggleSongPrivacy", userService.authenticateToken, async (req, res) => {
     let song = await databaseServ.toggleSongPrivacy(req.body.songbacktitle);
     res.send(song);
 })
 
 
-app.post("/addSong", upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'songFile', maxCount: 1 }]), async (req, res) => {
+app.post("/addSong", userService.authenticateToken, upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'songFile', maxCount: 1 }]), async (req, res) => {
   try {
     // Combine form fields and files information
     let songData = {
@@ -133,7 +133,7 @@ app.post("/addSong", upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'son
   }
 });
 
-app.post("/songlinks", async (req, res) =>{
+app.post("/songlinks", userService.authenticateToken, async (req, res) =>{
   console.log(req.body)
   await databaseServ.addLinks(req.body.songbacktitle, req.body.links)
   res.status(200)
