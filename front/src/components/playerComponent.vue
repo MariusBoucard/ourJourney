@@ -26,7 +26,7 @@
  
   </button>
   <button @click="nextSong">
-    <img style="height:100%;" src="/assets/player/chansonApres.svg" @click="passerChanson()" alt="Dernière chanson">
+    <img style="height:100%;" src="/assets/player/chansonApres.svg" @click="playNextSong()" alt="Dernière chanson">
   </button>
     </div> 
     <div v-if="isHovering" class="hover-div" 
