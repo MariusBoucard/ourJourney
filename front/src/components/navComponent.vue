@@ -86,7 +86,9 @@ nav-container {
 .info-toggle {
   background: rgba(255, 255, 255, 0.2);
   border: none;
-  padding: 10px;
+  font-size: 30px;
+  padding:10px;
+  padding-bottom: 15px;
   cursor: pointer;
   color: white;
 }
