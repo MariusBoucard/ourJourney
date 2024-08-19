@@ -80,7 +80,11 @@ export default {
         }
       },
       navigateToSong(songbacktitle) {
-      this.$router.push(`/song/${songbacktitle}`);
+        if(this.carte.support === "Single"){
+          this.$router.push(`/song/${songbacktitle}`);
+        } else {
+          this.$router.push(`/album/${songbacktitle}`);
+        }
     },
       playSong() {
         this.$store.commit('setCurrentSongLink', this.baseURL +"/song/"+ this.carte.songbacktitle + ".wav");

@@ -30,6 +30,7 @@
         </div>
          <div style="width:20%">
           <select v-model="selectedArtist">
+            <option value="">Tous les artistes</option>
             <option v-for="artist in existingArtists" :key="artist" :value="artist">{{ artist }}</option>
           </select>
         </div>
@@ -37,7 +38,7 @@
       <hr style="width :70%;margin:auto;"/>
       <div class="image-container">
       <img src="assets/banderole.png"/>
-      <button class="button-overlay">Dernière chanson publiée</button>
+      <button @click="goToLastSong()" class="button-overlay">Dernière chanson publiée</button>
     </div>
         <div class="cardsComponent">
           <template v-for="card in songsToDisplay" :key="card.title">
@@ -64,11 +65,15 @@ export default {
   methods : {
     isSelected(name) {
       return this.selectedName === name;
+    },
+    goToLastSong(){
+      this.allSongs = this.allSongs.sort((a, b) => new Date(b.date) - new Date(a.date));
+      this.$router.push(`/song/${this.allSongs[0].songbacktitle}`)
     }
   },
   computed: {
     existingArtists(){
-      return this.allSongs.map(song => song.artist).filter((value, index, self) => self.indexOf(value) === index)
+      return this.allSongs.map(song => song.artistes).filter((value, index, self) => self.indexOf(value) === index)
     },
     ...mapState({
       // This creates a computed property named `songLink` that is linked to the state in the Vuex store
@@ -79,7 +84,10 @@ export default {
       if(this.selectedName !== ''){
         return this.allSongs.filter(song => song.artistes.toLowerCase().includes(this.selectedName.toLowerCase()))
         }  
+      if(this.selectedArtist !== ''){
 
+        return this.allSongs.filter(song => song.artistes.toLowerCase().includes(this.selectedArtist.toLowerCase()))
+      }
             const searchTerm = this.search.toLowerCase();
             const matchedSongs = new Map();
 

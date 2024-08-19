@@ -29,9 +29,7 @@ export default class DatabaseService {
       return row;
     } catch (error) {
       console.error('Database error:', error);
-    } finally {
-      await this.db.close();
-    }
+    } 
   }
 
   async askSong(id) {
@@ -105,5 +103,68 @@ async askAlbumPublicSongs(albumName){
   } catch {
     return null;
   }
+}
+
+async toggleSongPrivacy(id) {
+  try {
+    // Step 1: Fetch the current state of the song
+    const getSql = 'SELECT private FROM chansons WHERE songbacktitle = ?';
+    const song = await this.db.get(getSql, id); // Assuming db.get() fetches a single row
+
+    if (song) {
+      // Step 2: Toggle the privacy state based on the current state
+      const newPrivacyState = !song.private; // This toggles the state
+      const updateSql = 'UPDATE chansons SET private = ? WHERE songbacktitle = ?';
+      await this.db.run(updateSql, newPrivacyState, id);
+      return true;
+    } else {
+      // Song not found
+      return false;
+    }
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+async suppSong(id) {
+  try {
+    // Step 1: Fetch the current state of the song
+    const getSql = 'DELETE FROM chansons WHERE songbacktitle = ?';
+    await this.db.run(getSql, id); // Assuming db.get() fetches a single row
+    // delete song files
+   // await fs.unlink() TODO
+    // delete cover file
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+
+}
+async addSong(song) {
+  try {
+    // Construct the SQL INSERT statement
+    // Assuming your table has columns for id, title, artist, and file path
+    const insertSql = `INSERT INTO chansons (titre, songbacktitle, titrealbum, numeroalbum, pathsong, pathcover, genre, support, artistes, annee, date, description, lyrics, private, lectures, band, lienext) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    // Execute the SQL query with the song details
+    // Replace `songDetails.title`, `songDetails.artist`, and `songDetails.filePath` with the actual property names in your songDetails object
+    await this.db.run(insertSql, [song.titre,song.songbacktitle ,song.titrealbum, song.numeroalbum,"","",song.genre,song.support, song.artistes, song.annee, song.date, song.description, song.lyrics, true,0,song.groupe,song.lienext]);
+    console.log("caca")
+
+
+
+    // If successful, return true or the inserted song's ID
+    return true;
+  } catch (error) {
+    console.error(error);
+    // Return false or throw an error if the insertion fails
+    return false;
+  }
+}
+async addLinks(songbacktitle,links){
+    const insertLien = "INSERT INTO liens (songbacktitle, soundcloud,yt,spotify,deezer,bandcamp,apple) VALUES (?,?,?,?,?,?,?)"
+    await this.db.run(insertLien, [songbacktitle, links.souncloud,links.youtube,links.spotify,links.deezer,links.bandcamp,links.applemusic ])
+  
 }
 }

@@ -9,7 +9,7 @@
       </div>
       <div class="titleFix">
 
-        <div v-if="this.menuOpen" class="sidebar-title">Title</div>
+        <!-- <div v-if="this.menuOpen" class="sidebar-title">Title</div> -->
       </div>
  
      
@@ -122,7 +122,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between; /* This will push the menu to the bottom */
-  background: rgba(255, 255, 255, 0.15); /* Semi-transparent white */
+  background: rgba(255, 0, 0, 0.658); /* Semi-transparent white */
   backdrop-filter: blur(10px); /* Blur effect */
   -webkit-backdrop-filter: blur(10px); /* For Safari */
   border: 1px solid rgba(255, 255, 255, 0.25); /* Subtle border */

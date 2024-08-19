@@ -10,23 +10,23 @@
       <source :src="songLink" type="audio/wav">
       Your browser does not support the audio element.
     </audio>
-    <img class="album-cover" :src="coverPath" alt="Album Cover">
+    <img class="album-cover" :src="coverPath" >
 
     <div class="song-info">
       <span>{{ currentSong.titre }}</span>
     </div>
     <div class="transport-controls">
-      <button @click="previousSong">
+      <!-- <button @click="previousSong">
         <img style="height:100%;" src="/assets/player/derniereChanson.svg" alt="Dernière chanson">
-      </button>
+      </button> -->
       <button @click="togglePlay">
 
-    <img style="height:65%;" v-if="!isPlaying" src="/assets/player/play.svg" alt="Dernière chanson">
-    <img style="height:65%;" v-else src="/assets/player/pause.svg" alt="Dernière chanson">
+    <img style="height:65%;" v-if="!isPlaying" src="/assets/player/play.svg" alt="Pause">
+    <img style="height:65%;" v-else src="/assets/player/pause.svg" alt="Jouer">
  
   </button>
   <button @click="nextSong">
-    <img style="height:100%;" src="/assets/player/chansonApres.svg" alt="Dernière chanson">
+    <img style="height:100%;" src="/assets/player/chansonApres.svg" @click="passerChanson()" alt="Dernière chanson">
   </button>
     </div> 
     <div v-if="isHovering" class="hover-div" 

@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "id": "E-sl7euqiqBbZ_zzBnzXp",
+      "type": "user",
+      "mail": "marius.boucard-bocciarelli@laposte.net",
+      "hash": "$2b$10$Xm53JkYpudRVXd886pCQmueKtjzEY489KZ6vvp3PeYzfkY8B3Zi9e",
+      "mailCheck": true
+    }
+  ]
+}

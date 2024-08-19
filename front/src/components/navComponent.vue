@@ -94,5 +94,11 @@ nav-container {
 .info-toggle:hover {
   background: rgba(255, 255, 255, 0.3);
 }
-
+.title {
+  font-family: 'Lobster', cursive;
+  text-decoration: none;
+  font-size: 50px;
+  color: #ffffff !important;
+  text-decoration: none;
+}
   </style>
