@@ -86,6 +86,7 @@ export default {
     // Helper function to search and add matches if not already added
     const searchAndAdd = (songs, field) => {
       songs.forEach(song => {
+        if(!song[field]) return;
         const fieldValue = song[field].toLowerCase();
         if (fieldValue.includes(searchTerm) && !matchedSongs.has(song.songbacktitle)) {
           matchedSongs.set(song.songbacktitle, song);

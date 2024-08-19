@@ -112,6 +112,9 @@ export default {
   },
   methods: {
     getCoverURL(song){
+      if(song.pathcover === undefined){
+        return ''
+      }
       const pathSegments = song.pathcover.split('/');
       const filename = pathSegments[pathSegments.length - 1];
       return this.baseURL + "/cover/" + filename;

@@ -41,7 +41,7 @@
              </button>
     <button class="buttonLink">
       
-          <router-link :to="`/song/${carte.songbacktitle}`" class="buttonLink" title="Page chanson">
+          <router-link :to="getPageLink()" class="buttonLink" title="Page chanson">
             <img src="/assets/fleche.png" alt="spotify" style="height:30px"> 
           
           </router-link>   
@@ -72,6 +72,13 @@ export default {
       }
     },
     methods: {
+      getPageLink(){
+        if(this.carte.support === "Single"){
+          return `/song/${this.carte.songbacktitle}`
+        } else {
+          return `/album/${this.carte.songbacktitle}`
+        }
+      },
       navigateToSong(songbacktitle) {
       this.$router.push(`/song/${songbacktitle}`);
     },

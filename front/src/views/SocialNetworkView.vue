@@ -138,33 +138,44 @@
   width: 200px;
   height: 200px;
 }
-.platforms { /* Corrected from .plateforms to .platforms */
+.platforms {
   display: flex;
-  width:40%;
+  width: 40%;
   flex-direction: column;
   margin-bottom: 50px;
+  background: linear-gradient(145deg, rgba(135, 222, 235, 0.5), rgba(255, 177, 193, 0.5)); /* Soft blue to pink gradient */
+  border-radius: 15px; /* Optional: adds rounded corners */
+  padding: 20px; /* Optional: adds some space inside the div */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
+
 .platforms a {
-  background-color: red; /* Assuming this is your default link color */
+  background-color: rgba(255, 0, 0, 0.5); /* Red with reduced opacity */
 }
 
 .platforms a:nth-child(odd) {
-  background-color: black;
-  color : white; /* Targets every other link starting from the first */
+  background-color: rgba(0, 0, 0, 0.5); /* Black with reduced opacity */
+  color: white;
 }
+
 .platform {
   display: flex;
   align-items: center;
-  text-decoration: none; /* Optional: removes underline from links */
-  color: inherit; 
-  border-radius: 10px;;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 10px;
   margin-bottom: 20px;
+  backdrop-filter: blur(10px); /* Blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.18); /* Slight white border for definition */
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Smooth transition for color and border color */
+
 }
-.platform:hover{
-  /* transform: translateX(5px); Moves the element a bit to the right */
-  background-color: white !important; /* Changes the background to white */
-  border: 1px solid black  !important;;
-  color: black !important; 
+
+.platform:hover {
+  background-color: rgba(255, 255, 255, 0.75) !important; /* Lighter white on hover */
+  border: 1px solid black !important;
+  color: black !important;
 }
 .cover{
     height:100%;
