@@ -22,6 +22,8 @@ function readDataFromFile() {
   }
 
 function saveToFile(data){
+  console.log(data)
+    console.log("saved .")
     fs.writeFileSync('data/user.json', JSON.stringify(data, null, 2));
 }
 
@@ -173,8 +175,21 @@ authenticateToken : function authenticateToken(req, res, next) {
     req.user = user;
     next();
   });
-}
+},
 
+getLinktreeSongs : async function getLinktreeSongs(){
+  const rawData = await readDataFromFile()
+  const linktreeIDS = rawData.linktree
+  console.log(linktreeIDS)
+  return linktreeIDS
+},
+updateLinktreeSongs : async function updateLinktreeSongs(idList){
+  console.log(idList)
+  const rawData = await readDataFromFile()
+  rawData.linktree = idList
+  saveToFile(rawData)
+
+}
 
 }
 

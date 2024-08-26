@@ -37,7 +37,7 @@
         </div>
       <hr style="width :70%;margin:auto;"/>
       <div class="image-container">
-      <img src="assets/banderole.png"/>
+      <img src="assets/banderole2.JPG"/>
       <button @click="goToLastSong()" class="button-overlay">Dernière chanson publiée</button>
     </div>
         <div class="cardsComponent">
@@ -219,8 +219,8 @@ export default {
 
 .image-container img {
   width: 100%; /* Make the image fit the width of the container */
-  height: auto; /* Adjust height automatically to maintain aspect ratio */
-  object-fit: cover; /* Adjust this as needed to 'contain' or 'cover' */
+  height: 40%; /* Adjust height automatically to maintain aspect ratio */
+  object-fit: contain; /* Adjust this as needed to 'contain' or 'cover' */
   border-radius: 20px;
 }
 

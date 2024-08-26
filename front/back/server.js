@@ -137,5 +137,27 @@ app.post("/songlinks", userService.authenticateToken, async (req, res) =>{
   console.log(req.body)
   await databaseServ.addLinks(req.body.songbacktitle, req.body.links)
   res.status(200)
-})
+});
 
+
+app.post("/linktreeSong",  async (req, res) => {
+  let { songsID } = req.body
+  let song = await userService.updateLinktreeSongs(songsID);
+  res.send(song);
+});
+
+app.get("/linktreeSongs", async (req, res) => {
+  let song = await userService.getLinktreeSongs();
+  res.send(song);
+});
+
+app.get("/linktreePageData", async (req,res) => {
+  let songs = await userService.getLinktreeSongs();
+  // Recup all data on songs :
+  let s = []
+  for (let i = 0; i < songs.length; i++) {
+    let song = await databaseServ.askSong(songs[i].songbacktitle)
+    s.push(song)
+  }
+  return res.send(s)
+})

@@ -2,6 +2,8 @@
 <div class="container">
     <div>
         <router-link to="admin/addSong">Add song</router-link>
+        <router-link to="admin/updateLinktree">Add song</router-link>
+
     </div>
     <table>
       <thead>
