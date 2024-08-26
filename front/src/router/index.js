@@ -37,6 +37,17 @@ const routes = [
       return import(/* webpackChunkName: "about" */ '../views/SocialNetworkView.vue')
     }
   },
+  {
+    path: '/linktree',
+    name: 'linktreeAll',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: function () {
+      return import(/* webpackChunkName: "about" */ '../views/linktreeView.vue')
+    },
+    meta: {     hideNavigationLinks: true }
+  },
     {
       path: '/login',
       name: 'login',
@@ -71,7 +82,7 @@ const routes = [
     },
     {
       path: '/admin/updateLinktree',
-      name: 'linktree',
+      name: 'linktreeAdmin',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.

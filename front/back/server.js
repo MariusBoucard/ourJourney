@@ -155,8 +155,9 @@ app.get("/linktreePageData", async (req,res) => {
   let songs = await userService.getLinktreeSongs();
   // Recup all data on songs :
   let s = []
+  console.log(songs)
   for (let i = 0; i < songs.length; i++) {
-    let song = await databaseServ.askSong(songs[i].songbacktitle)
+    let song = await databaseServ.askSong(songs[i])
     s.push(song)
   }
   return res.send(s)

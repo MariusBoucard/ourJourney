@@ -1,6 +1,11 @@
 <template>
   <div class="form-container">
     {{ song.lienext }}
+    <div class="leftColumn"> 
+        <router-link class="router-link" to="/admin">Main Admin</router-link>
+        <router-link class="router-link" to="/admin/updateLinktree">update linktree</router-link>
+    </div>
+    <div class="rightColumn">
     <form @submit.prevent="addSong">
       <div class="form-group">
         <label for="titre">Titre</label>
@@ -109,6 +114,7 @@
       <button type="submit" class="submit-button">Submit</button>    </form>
       <p></p>
       <p></p>
+    </div>
   </div>
 </template>
 
@@ -226,5 +232,99 @@ export default {
 
 .submit-button:hover {
   background-color: #0056b3;
+}
+
+/* General layout styling */
+.leftColumn, .rightColumn {
+    padding: 20px;
+}
+
+.leftColumn {
+    float: left;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+}
+
+.rightColumn {
+    float: right;
+    width: 75%;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-right: 20px;
+}
+
+/* Clear floats */
+div::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Styling for the list and buttons */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+    background-color: #e9e9e9;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+label {
+    margin-right: 15px;
+}
+
+button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ff3333;
+}
+
+/* Input and Add button styling */
+input[type="text"] {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: calc(100% - 22px); /* Adjust width to fit parent */
+}
+
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Router link styling */
+.router-link {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.router-link:hover {
+    background-color: #ddd;
 }
 </style>
