@@ -12,7 +12,7 @@ Avec les copains, on écrit des chansons depuis une dizaine d'années, et j'ai p
       
         <div class="logo-and-title">
 
-          <img alt="logo" style="height:50px; margin : 5px" src="/assets/pioneerWhite.png">
+          <img alt="logo" class="logo" src="/assets/pioneerWhite.png">
         </div>
         <div class="nav-links">
           <!-- <router-link to="/">Home</router-link>
@@ -102,5 +102,23 @@ nav-container {
   font-size: 50px;
   color: #ffffff !important;
   text-decoration: none;
+}
+.logo{
+   height:50px;
+    margin : 5px;
+}
+
+@media (max-width: 768px) {
+
+  .logo {
+    height: 30px;
+  }
+  .title{
+    font-size: 30px;
+  }
+  .info-toggle{
+    padding:5px;
+    padding-bottom: 10px;
+  }
 }
   </style>

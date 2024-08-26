@@ -455,4 +455,49 @@ a{
   text-decoration: none;
   color: white;
 }
+
+@media (max-width: 768px) {
+
+.songContainer {
+  flex-direction: column; /* Stack the children vertically on small screens */
+  gap: 20px; /* Adjust the space between the children */
+}
+
+.playerCard {
+  width: 100%; /* Full width on small screens */
+}
+
+.cover {
+  width: 100%; /* Full width on small screens */
+}
+
+.lyricsDiv {
+  width: 100%; /* Full width on small screens */
+}
+.pageTitle{
+  display: none;
+}
+.playerCard{
+  margin-top: 20px;
+  width : 80%;
+}
+.songContainer{
+
+}
+.lyricsDiv{
+  margin-top: 20px;
+  width: 70%;
+  margin-left: 80px;
+}
+.sidebar{
+  position : fixed;
+  top: 0;
+}
+.songContainer{
+margin-right: 3%;
+justify-content: center;}
+.songInfo{
+  margin-left : 60px;
+}
+}
 </style>

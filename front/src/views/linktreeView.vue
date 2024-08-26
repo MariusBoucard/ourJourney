@@ -266,4 +266,12 @@ export default {
 .buttonImage{
   width : 70%;
 }
+@media (max-width: 768px) {
+.platforms{
+  width: 80%;
+}
+.redirect-button{
+  padding: 5px;
+}
+}
 </style>

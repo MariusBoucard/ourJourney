@@ -4,8 +4,8 @@
      <sidebarComponent />
      </div>
 
-    <h1 class="pageTitle">{{ song.titre }}</h1>
-    <div class="songContainer">
+     <div class="songContainer">
+      <h1 class="pageTitle">{{ song.titre }}</h1>
       <div class="playerCard">
         <div>
           {{ song.band }} | {{ song.titre }}
@@ -187,6 +187,7 @@ export default {
   color: #fff; /* White text color */
   display: flex;
   flex-direction: column;
+  z-index: 1;
   align-items: center;
   justify-content: space-between; /* Space out the text, image, and buttons */
   margin: auto; /* Center the card */
@@ -264,6 +265,44 @@ export default {
   text-align: center;
   margin-top: 30px;;
   font-size: xxx-large;
+}
+@media (max-width: 768px) {
+
+  .songContainer {
+    flex-direction: column; /* Stack the children vertically on small screens */
+    gap: 20px; /* Adjust the space between the children */
+  }
+
+  .playerCard {
+    width: 100%; /* Full width on small screens */
+    margin-right: 0; /* No margin on small screens */
+  }
+
+  .cover {
+    width: 100%; /* Full width on small screens */
+  }
+
+  .lyricsDiv {
+    width: 100%; /* Full width on small screens */
+  }
+  .pageTitle{
+    display: none;
+  }
+  .playerCard{
+    margin-top: 20px;
+  }
+  .songContainer{
+
+  }
+  .lyricsDiv{
+    margin-top: 20px;
+    width: 70%;
+    margin-left: 80px;
+  }
+  .sidebar{
+    position : fixed;
+    top: 0;
+  }
 }
 </style>
 

@@ -194,5 +194,11 @@
   font-size: large;
 }
 
+@media (max-width: 768px) {
+.platforms{
+  width: 80%;
+}
+}
+
   </style>
   

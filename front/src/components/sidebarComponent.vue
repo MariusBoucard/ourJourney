@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar" @mouseover="menuOpen = true" @mouseleave="menuOpen = false">
+    <div class="sidebar" :class="{ 'over': menuOpen}" @mouseover="menuOpen = true" @mouseleave="menuOpen = false">
       <div style="margin-top :150px" class="itemLine">
         <!-- Recherche -->
         <img src="/assets/loupe.png" alt="search" class="roundedPic">
@@ -242,5 +242,16 @@
   transition: color 0.3s ease; /* Smooth transition for text color change */
 }
 
+@media (max-width: 768px) {
+  .roundedPic{
+    width: 30px;
+    height: 30px;
+  }
+  .bar{
+    width: 25px;
+    height: 3px;
+  }
 
+
+}
   </style>

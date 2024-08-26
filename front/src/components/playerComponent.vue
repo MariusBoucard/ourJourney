@@ -452,6 +452,23 @@ height: 100%;
   cursor: pointer;
   width: 15%;
 }
+@media (max-width: 768px) {
 
+
+  .player {
+    width: 90%;
+    /* Adjusted width for smaller screens */
+  }
+
+  .transport-controls button {
+    font-size: 20px;
+    /* Adjusted icon size for smaller screens */
+  }
+
+  .playlist-div {
+    width: 20%;
+    /* Adjusted width for smaller screens */
+  }
+}
 
 </style>
