@@ -19,8 +19,6 @@
 
 </template>
 <script>
-import { defineComponent } from 'vue';
-import draggable from 'vuedraggable';
 
 import AxiosInstance from '/axios';
 export default{
