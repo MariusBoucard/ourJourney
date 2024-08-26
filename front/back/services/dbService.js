@@ -167,4 +167,25 @@ async addLinks(songbacktitle,links){
     await this.db.run(insertLien, [songbacktitle, links.souncloud,links.youtube,links.spotify,links.deezer,links.bandcamp,links.applemusic ])
   
 }
+async deleteSong(songbacktitle){
+  console.log(songbacktitle)
+  const deleteLien = "DELETE FROM chansons WHERE songbacktitle = ?"
+
+    try {
+      const result = await this.db.run(deleteLien, [songbacktitle]);
+      const deleteLi = "DELETE FROM liens WHERE songbacktitle = ?"
+      const resulte = await this.db.run(deleteLi, [songbacktitle]);
+
+      console.log(result); // Log result to see the outcome of the operation
+      console.log(resulte)
+      if (result.changes > 0) {
+        return 'deleted';
+      } else {
+        return 'no record found';
+      }
+    } catch (error) {
+      console.error('Error deleting song:', error);
+      return 'error'; // Return or throw, depending on how you want to handle errors
+    }
+}
 }

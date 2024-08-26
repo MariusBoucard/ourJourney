@@ -140,7 +140,7 @@ app.post("/songlinks", userService.authenticateToken, async (req, res) =>{
 });
 
 
-app.post("/linktreeSong",  async (req, res) => {
+app.post("/linktreeSong" ,  userService.authenticateToken, async (req, res) => {
   let { songsID } = req.body
   let song = await userService.updateLinktreeSongs(songsID);
   res.send(song);
@@ -162,3 +162,10 @@ app.get("/linktreePageData", async (req,res) => {
   }
   return res.send(s)
 })
+
+app.post("/deleteSong" ,  userService.authenticateToken, async (req, res) => {
+  let { songbacktitle } = req.body
+  let song = await databaseServ.deleteSong(songbacktitle);
+  console.log("deleted")
+  res.send(song);
+});

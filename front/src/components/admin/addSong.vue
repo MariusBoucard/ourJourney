@@ -187,6 +187,7 @@ export default {
             console.log("links added",response)
           ).catch(error => console.log(error))
         }
+        this.$router.push({ name: 'admin' });
       }).catch(error => {
         // Handle error
         console.error(error);

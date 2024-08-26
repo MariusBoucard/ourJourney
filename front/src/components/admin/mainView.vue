@@ -38,7 +38,7 @@
                 Public
             </p>
         </button></td>
-          <td><button>Suppr</button></td>
+          <td><button @click="supprSong(song.songbacktitle)">Suppr</button></td>
         </tr>
       </tbody>
     </table>
@@ -57,6 +57,17 @@ export default {
     }
   },
   methods: {
+    supprSong(songbacktitle){
+        console.log("songbacktitle",songbacktitle)
+        AxiosInstance.post('/deleteSong', {songbacktitle : songbacktitle})
+        .then(response => {
+            console.log(response.data)
+            this.fetchData()
+        })
+        .catch(error => {
+            console.log(error)
+        });
+    },
     togglePrivacy(songbacktitle){
         console.log("songbacktitle",songbacktitle)
         AxiosInstance.post('/toggleSongPrivacy', {songbacktitle : songbacktitle})
