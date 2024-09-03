@@ -4,8 +4,8 @@
      <sidebarComponent />
      </div>
 
+     <h1 class="pageTitle">{{ song.titre }}</h1>
      <div class="songContainer">
-      <h1 class="pageTitle">{{ song.titre }}</h1>
       <div class="playerCard">
         <div>
           {{ song.band }} | {{ song.titre }}
@@ -38,7 +38,7 @@
       <div class="songInfo">
         <h2>{{ song.titre }}</h2>
         <p><span class="descSpan"> Artist: </span> {{ song.artistes }}</p>
-        <p><span class="descSpan">Album:</span> {{ song.album }}</p>
+        <p><span class="descSpan">Album:</span> {{ song.titrealbum }}</p>
         <p><span class="descSpan">Genre:</span> {{ song.genre }}</p>
         <p><span class="descSpan">Release Date:</span> {{ formatSongDate(song.date) }}</p>
         <p><span class="descSpan">Support :</span> {{ song.support }}</p>

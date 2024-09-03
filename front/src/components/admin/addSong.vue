@@ -168,6 +168,7 @@ export default {
           formData.append(key, this.song[key]);
         }
       });
+      formData.append('pathcover', "/"+this.song.songbacktitle+"png");
       // Append files separately to maintain file structure
       if (this.song.cover) formData.append('cover', this.song.cover);
       if (this.song.songFile) formData.append('songFile', this.song.songFile);

@@ -54,7 +54,7 @@
 
 import { API_BASE_URL } from '/axios';
 import { mapState } from 'vuex';
-
+import axios from '/axios';
 export default {
   components: {
    // draggable,
@@ -156,6 +156,35 @@ export default {
       clearTimeout(this.closeHoverTimeout); // Cancel the scheduled closing when mouse enters hover-div
     },
     togglePlay() {
+    // Load the last song
+    if (!this.$store.state.currentSong) {
+    
+    if(this.localPlaylist.length === 0){
+      axios.get('/linktreeSongs')
+    .then(response => {
+      console.log(response.data);
+      axios.get('/song/'+ response.data[response.data.length - 1]).then(response => {
+        console.log(response.data);
+        const song = response.data[0];
+        this.$store.commit('setCurrentSongLink', this.baseURL +"/song/"+ song.songbacktitle + ".wav");
+        this.$store.commit('setCurrentSong', song);
+        this.isPlaying = !this.isPlaying;
+      }).catch(error => {
+        console.log(error);
+      })
+    })
+     // Pull the server for the last song available in the linktree:
+    return
+     
+    }
+    const lastSong = this.localPlaylist[this.localPlaylist.length - 1];
+    this.$store.commit('setCurrentSongLink', this.baseURL +"/song/"+ lastSong.songbacktitle + ".wav");
+    this.$store.commit('setCurrentSong', lastSong);
+    this.isPlaying = !this.isPlaying;
+
+    return;
+  }
+
       this.isPlaying = !this.isPlaying;
       this.isPlaying ? this.playSong() : this.pauseSong();
     },
