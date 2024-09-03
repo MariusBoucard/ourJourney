@@ -159,24 +159,41 @@ export default {
     // Load the last song
     if (!this.$store.state.currentSong) {
     
-    if(this.localPlaylist.length === 0){
-      axios.get('/linktreeSongs')
-    .then(response => {
-      console.log(response.data);
-      axios.get('/song/'+ response.data[response.data.length - 1]).then(response => {
-        console.log(response.data);
-        const song = response.data[0];
-        this.$store.commit('setCurrentSongLink', this.baseURL +"/song/"+ song.songbacktitle + ".wav");
-        this.$store.commit('setCurrentSong', song);
-        this.isPlaying = !this.isPlaying;
-      }).catch(error => {
-        console.log(error);
-      })
-    })
-     // Pull the server for the last song available in the linktree:
-    return
-     
-    }
+      if(this.localPlaylist.length === 0){
+        if (this.$route.params.id) {
+          axios.get('/song/' + this.$route.params.id)
+            .then(response => {
+              const song = response.data[0];
+              this.$store.commit('setCurrentSongLink', this.baseURL +"/song/"+ song.songbacktitle + ".wav");
+              this.$store.commit('setCurrentSong', song);
+              this.isPlaying = !this.isPlaying;
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        } else {
+          // Otherwise, load the last song from the server
+          axios.get('/linktreeSongs')
+            .then(response => {
+              console.log(response.data);
+              const song = response.data[response.data.length - 1];
+              axios.get('/song/' + song)
+            .then(response => {
+              const songval = response.data[0];
+              this.$store.commit('setCurrentSongLink', this.baseURL +"/song/"+ songval.songbacktitle + ".wav");
+              this.$store.commit('setCurrentSong', songval);
+              this.isPlaying = !this.isPlaying;
+            })
+            .catch(error => {
+              console.log(error);
+            });
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+      return
+      }
     const lastSong = this.localPlaylist[this.localPlaylist.length - 1];
     this.$store.commit('setCurrentSongLink', this.baseURL +"/song/"+ lastSong.songbacktitle + ".wav");
     this.$store.commit('setCurrentSong', lastSong);
