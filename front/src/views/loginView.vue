@@ -32,7 +32,7 @@ export default {
                     // You can use libraries like Axios or the native Fetch API for this
                     // Example with Axios:
                     console.log("formdata",this.formData)
-                    AxiosInstance.post('/api/login', this.formData)
+                    AxiosInstance.post('/apiBack/login', this.formData)
                         .then(response => {
                             // Handle the response from the server
                             const token = response.data.token;

@@ -230,12 +230,16 @@ export default {
 }
 
 .main-content {
-  background-color: #e0e0e0;
+  background: rgb(201, 201, 201);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   width: 100%;
-  /* Additional styling for the main content area */
 }
 
 .image-container {
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.7);
+
   width: 70%;
   position: relative;
   /* Allows absolute positioning of children */
@@ -249,9 +253,9 @@ export default {
 .image-container img {
   width: 100%;
   /* Make the image fit the width of the container */
-  height: 40%;
+  height: 100%;
   /* Adjust height automatically to maintain aspect ratio */
-  object-fit: contain;
+  object-fit :fill;
   /* Adjust this as needed to 'contain' or 'cover' */
   border-radius: 20px;
 }

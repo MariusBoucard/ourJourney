@@ -9,7 +9,7 @@ app.use(express.json());
 
 const port = 3001;
 app.use(cors()); // This will enable CORS for all routes
-app.use('/files',express.static('files'));
+app.use('/api/files',express.static('files'));
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -34,7 +34,7 @@ const upload = multer({ storage: storage });
 
 let databaseServ = new DatabaseService('Db/sitedb.sqlite3');
 databaseServ.init();
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
     res.send('Hello World!');
 });
 
@@ -42,55 +42,50 @@ app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 });
 
-app.get('/allSongs', async (req, res) => {
+app.get('/api/allSongs', async (req, res) => {
     let songs = await databaseServ.askAllSongs();
     res.send(songs);
 });
 
-app.get('/allPublicSongs', async (req, res) => {
+app.get('/api/allPublicSongs', async (req, res) => {
     let songs = await databaseServ.askAllPublicSongs();
     res.send(songs);
 });
 
-app.get("/song/:id", async (req, res) => {
-    console.log("not implemented yet");
+app.get("/api/song/:id", async (req, res) => {
     let song = await databaseServ.askSong(req.params.id);
     res.send(song);
 })
 
-app.get("/songLinks/:id", async (req, res) => {
+app.get("/api/songLinks/:id", async (req, res) => {
     let song = await databaseServ.songLinks(req.params.id);
     res.send(song);
 })
 
-app.get("/songFile/:id", async (req, res) => {
-    console.log("not implemented yet");
+app.get("/api/songFile/:id", async (req, res) => {
     let song = await databaseServ.askSongFile(req.params.id);
     res.send(song);
 })
 
-app.get("/songsAlbum/:id", async (req, res) => {
+app.get("/api/songsAlbum/:id", async (req, res) => {
     let song = await databaseServ.askAlbumPublicSongs(req.params.id);
     res.send(song);
 })
 
-app.post('/apiBack/login', async (req, res) => {
+app.post('/api/apiBack/login', async (req, res) => {
     const {  password, email } = req.body;
-    console.log(req.body)
    const id = await userService.doUserExists({
       mail: email,
       password : password
     })
     if(id !== false){
-        console.log(id)
       const token = userService.generateToken(id)
       res.status(200).json({ token : token, connected : true });
     }
     res.status(401)
   });
   
-app.post('/apiBack/register', async (req, res) => {
-    console.log(req.body)
+app.post('/api/apiBack/register', async (req, res) => {
     const {  mail,password } = req.body;
     const user = {
       mail: mail,
@@ -107,13 +102,13 @@ app.post('/apiBack/register', async (req, res) => {
 
 
 // TODO
-app.post("/toggleSongPrivacy", userService.authenticateToken, async (req, res) => {
+app.post("/api/toggleSongPrivacy", userService.authenticateToken, async (req, res) => {
     let song = await databaseServ.toggleSongPrivacy(req.body.songbacktitle);
     res.send(song);
 })
 
 
-app.post("/addSong", userService.authenticateToken, upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'songFile', maxCount: 1 }]), async (req, res) => {
+app.post("/api/addSong", userService.authenticateToken, upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'songFile', maxCount: 1 }]), async (req, res) => {
   try {
     // Combine form fields and files information
     let songData = {
@@ -125,7 +120,6 @@ app.post("/addSong", userService.authenticateToken, upload.fields([{ name: 'cove
     };
 
     let song = await databaseServ.addSong(songData);
-    console.log("song added")
     res.send(song);
   } catch (error) {
     console.error(error);
@@ -133,29 +127,27 @@ app.post("/addSong", userService.authenticateToken, upload.fields([{ name: 'cove
   }
 });
 
-app.post("/songlinks", userService.authenticateToken, async (req, res) =>{
-  console.log(req.body)
+app.post("/api/songlinks", userService.authenticateToken, async (req, res) =>{
   await databaseServ.addLinks(req.body.songbacktitle, req.body.links)
   res.status(200)
 });
 
 
-app.post("/linktreeSong" ,  userService.authenticateToken, async (req, res) => {
+app.post("/api/linktreeSong" ,  userService.authenticateToken, async (req, res) => {
   let { songsID } = req.body
   let song = await userService.updateLinktreeSongs(songsID);
   res.send(song);
 });
 
-app.get("/linktreeSongs", async (req, res) => {
+app.get("/api/linktreeSongs", async (req, res) => {
   let song = await userService.getLinktreeSongs();
   res.send(song);
 });
 
-app.get("/linktreePageData", async (req,res) => {
+app.get("/api/linktreePageData", async (req,res) => {
   let songs = await userService.getLinktreeSongs();
   // Recup all data on songs :
   let s = []
-  console.log(songs)
   for (let i = 0; i < songs.length; i++) {
     let song = await databaseServ.askSong(songs[i])
     s.push(song)
@@ -163,9 +155,8 @@ app.get("/linktreePageData", async (req,res) => {
   return res.send(s)
 })
 
-app.post("/deleteSong" ,  userService.authenticateToken, async (req, res) => {
+app.post("/api/deleteSong" ,  userService.authenticateToken, async (req, res) => {
   let { songbacktitle } = req.body
   let song = await databaseServ.deleteSong(songbacktitle);
-  console.log("deleted")
   res.send(song);
 });

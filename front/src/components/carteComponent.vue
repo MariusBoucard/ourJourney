@@ -3,8 +3,13 @@
       <div class="card-content" @click.stop="navigateToSong(carte.songbacktitle)">
         <img :src=getPathCover(carte.pathcover) alt="Picture" class="card-img">
         <h2>{{ carte.titre }}</h2>
-        <p>{{ carte.description }}</p>
-        <p>Artistes : {{ carte.artistes }}</p>
+        {{ showMore ? carte.description : carte.description.substring(0, 200) + '...' }}
+  <button @click.stop="showMore = !showMore">
+    {{ showMore ? 'Voir plus' : 'Voir moins' }}
+  </button>
+  <p style="margin-top: 5px; margin-bottom: 0px;">
+    <b>Artistes</b>: {{ carte.artistes }}
+  </p>
         <div class="allDiv">
           <p>{{ carte.support }}</p>
           <p>{{ formatDate(carte.date) }}</p>
@@ -60,7 +65,8 @@ export default {
     data() {
       return {
         carte: this.carteValue,
-        baseURL : API_BASE_URL
+        baseURL : API_BASE_URL,
+        showMore : false,
       }
     },
     watch: {
@@ -134,6 +140,15 @@ export default {
   --deep-grey: #333333;
   --light-color: #ffffff;
 }
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
 .buttonLink {
   padding: 10px 20px; /* Existing padding inside the buttons */
   border: none; /* Existing border removal */
@@ -193,12 +208,13 @@ svg{
 }
 
 /* Glassmorphism style for the card */
-.card {
+.card{
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.40);
   cursor: pointer;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.7);
 }
 
 .card-img{
@@ -210,7 +226,10 @@ svg{
     justify-content: space-between;
 }
 .allDiv > p {
-  padding : 10px;
+  padding-right : 10px;
+  padding-left : 10px;
+  margin-top : 10;
+  margin-bottom: 0;
 }
 
 /* .card-actions button {
@@ -266,5 +285,16 @@ svg{
 .playButton:hover {
   background: linear-gradient(135deg, rgba(67, 233, 123, 0.8), rgba(56, 249, 215, 0.8)); /* Darker gradient on hover */
   transform: scale(1.05); /* Slightly increase size on hover */
+}
+.card{
+  transition: background 0.3s ease-in-out;
+}
+.card:hover{
+  transform: scale(1.05);
+  transition: transform 0.5s;
+  background: rgba(255, 255, 255, 0.75);
+
+  box-shadow: 0 0 40px rgba(255, 255, 255, 1);
+  
 }
   </style>

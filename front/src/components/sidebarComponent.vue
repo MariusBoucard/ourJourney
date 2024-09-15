@@ -109,14 +109,9 @@
   margin-right: 20px;
   margin-left: 20px;
 
-  transition: all 0.3s ease;
 }
 
-.beautifulInput:focus {
-  outline: none;
-  border-color: #007BFF;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
+
   .sidebar {
     display: flex;
   flex-direction: column;
@@ -127,7 +122,7 @@
   -webkit-backdrop-filter: blur(10px); /* For Safari */
   border: 1px solid rgba(255, 255, 255, 0.25); /* Subtle border */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-  height: 100vh;
+  height: 100%;
   z-index: 0;
   overflow-y: hidden; /* Prevent vertical scrolling */
 
@@ -136,7 +131,10 @@
   .sidebar-title {
     margin-bottom: 20px;
   }
-  
+  .itemLine:focus-within {
+  width: 100%; /* Ensures the element maintains its full width */
+  flex-shrink: 0; /* Prevents the element from shrinking */
+}
   .user-profile {
     display: flex;
     align-items: center;
@@ -186,7 +184,7 @@
   .menu-items a {
     text-decoration: none;
     color: #333;
-    width:100%;
+   width:100%;
   }
   
   /* When menu is open, show username and adjust styles */
@@ -202,7 +200,7 @@
   height: 40px; /* Ensuring the image is a perfect circle */
   border-radius: 50%;
   object-fit: cover; /* Ensures the image covers the area without losing its aspect ratio */
-  transition: transform 0.3s ease; /* Smooth transition for scale effect */
+  /*transition: transform 0.3s ease; /* Smooth transition for scale effect */
   margin-right: 20px;
   margin-left: 20px;
 
@@ -214,15 +212,13 @@
   justify-content: space-between;
   align-items: center;
   color: #333;
-
+height: 40px;
   gap: 10px;
   padding: 10px 0; /* Adds padding to the top and bottom for better spacing */
   transition: background-color 0.3s ease; /* Smooth transition for background color change */
 }
 
-.itemLine:hover .roundedPic {
-  transform: scale(1.1); /* Slightly enlarges the image on hover */
-}
+
 
 .itemLine:hover {
   background: rgba(0, 0, 0, 0.6); /* Semi-transparent black for glass effect */
@@ -232,6 +228,11 @@
   color: white ; /* White text color for contrast */
   cursor: pointer; /* Indicates it's clickable */
   box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); /* Soft glow for realism */ /* Changes the cursor to indicate it's clickable */
+  transform: none; /* Ensure no zoom effect */
+  overflow: hidden; /* Prevents the element from becoming scrollable */
+  /* height: wrap-content; */
+
+
 }
 .itemLine > span {
   margin : auto;
