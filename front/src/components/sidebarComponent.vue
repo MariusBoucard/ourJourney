@@ -224,8 +224,7 @@ height: 40px;
   background: rgba(0, 0, 0, 0.6); /* Semi-transparent black for glass effect */
   backdrop-filter: blur(5px); /* Blur effect for glass look */
   -webkit-backdrop-filter: blur(5px); /* For Safari */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle white border for depth */
-  color: white ; /* White text color for contrast */
+    color: white ; /* White text color for contrast */
   cursor: pointer; /* Indicates it's clickable */
   box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); /* Soft glow for realism */ /* Changes the cursor to indicate it's clickable */
   transform: none; /* Ensure no zoom effect */
