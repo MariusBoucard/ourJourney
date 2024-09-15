@@ -44,9 +44,16 @@
           <button @click="goToLastSong()" class="button-overlay">Dernière chanson publiée</button>
         </div>
         <div class="cardsComponent">
-          <template v-for="card in songsToDisplay" :key="card.title">
-            <CarteComponent :carteValue="card" />
-          </template>
+          <div class="cardsRow" v-on:mouseover="handleRowHover(index)" v-for="(row, index) in rows" :key="index"  :style="{ zIndex: zIndexes[index], marginTop: index > 0 ? '-100px' : '0', position: 'relative' }">
+  
+      <template v-for="card in row" :key="card.title" >
+        <div class="cardDiv"  >
+
+        <CarteComponent :carteValue="card"/>
+        </div>
+      </template>
+   
+  </div>
         </div>
       </div>
     </div>
@@ -72,9 +79,28 @@ export default {
     goToLastSong() {
       this.allSongs = this.allSongs.sort((a, b) => new Date(b.date) - new Date(a.date));
       this.$router.push(`/song/${this.allSongs[0].songbacktitle}`)
-    }
+    },
+    handleRowHover(index) {
+  // Remove the index from hoverOrder if it's already there
+  this.hoverOrder = this.hoverOrder.filter(i => i !== index);
+    // Add the index to the start of hoverOrder
+    this.hoverOrder.unshift(index);
+    },
+    handleCardHover(event) {
+    event.target.style.zIndex = "1000"; // or any high value
+  },
+  handleCardUnhover(event) {
+    event.target.style.zIndex = ""; // reset to the initial value
+  },
   },
   computed: {
+    rows() {
+    let rows = [];
+    for (let i = 0; i < this.songsToDisplay.length; i += 3) {
+      rows.push(this.songsToDisplay.slice(i, i + 3));
+    }
+    return rows;
+  },
     existingArtists() {
       if (this.allSongs.length > 0) {
         return this.allSongs.map(song => song.artistes).filter((value, index, self) => self.indexOf(value) === index)
@@ -82,6 +108,13 @@ export default {
         return []
       }
     },
+    zIndexes() {
+    let zIndexes = [];
+    for (let i = 0; i < this.hoverOrder.length; i++) {
+      zIndexes[this.hoverOrder[i]] = this.hoverOrder.length - i+500;
+    }
+    return zIndexes;
+  },
     ...mapState({
       // This creates a computed property named `songLink` that is linked to the state in the Vuex store
       search: state => state.currentSearch
@@ -137,6 +170,7 @@ export default {
   },
   data() {
     return {
+      hoverOrder: [],  
       selectedName: '',
       selectedArtist: '',
       sortType: 'dateDesc',
@@ -169,6 +203,30 @@ export default {
   cursor: pointer;
   /* Your existing styles for .nameDiv */
 }
+.cardDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 32%;
+  height: 100%;
+  transition: transform 0.3s ease;
+  /* Smooth transition on hover */
+}
+
+.cardDiv:hover {
+  z-index: 1000;
+  /* Slightly enlarge on hover */
+}
+.cardsRow {
+  display: flex;
+
+  justify-content: space-between;
+  margin-top: -100px;
+  justify-content: space-between;
+  /* Adjust the gap between cards */
+  /* Center the cards */
+}
 
 .glass-effect {
   background: rgba(0, 0, 0, 0.5);
@@ -199,10 +257,12 @@ export default {
 }
 
 .cardsComponent {
-  display: grid;
+  display: block;
+  position: relative;
+
   width: 70%;
   margin: auto;
-  grid-template-columns: repeat(3, 1fr);
+ /* grid-template-columns: repeat(3, 1fr);
   /* Creates three columns of equal width */
   gap: 20px;
   /* Maintains the gap between cards */

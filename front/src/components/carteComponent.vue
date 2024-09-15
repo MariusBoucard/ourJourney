@@ -214,6 +214,7 @@ svg{
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.40);
   cursor: pointer;
+  height: 100%;
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.7);
 }
 
