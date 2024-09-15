@@ -43,8 +43,8 @@
           <img src="assets/banderole2.JPG" />
           <button @click="goToLastSong()" class="button-overlay">Dernière chanson publiée</button>
         </div>
-        <div class="cardsComponent">
-          <div class="cardsRow" v-on:mouseover="handleRowHover(index)" v-for="(row, index) in rows" :key="index"  :style="{ zIndex: zIndexes[index], marginTop: index > 0 ? '-100px' : '0', position: 'relative' }">
+        <div class="cardsComponent" ref="cardsComponent">
+          <div class="cardsRow" ref="cardsRow" v-on:mouseover="handleRowHover(index)" v-for="(row, index) in rows" :key="index"  :style="{ zIndex: zIndexes[index], position: 'relative' , marginTop: (index>0 && index !== lastHovered)? MarginTop + 'px' : index >0 ? currentMarginTopComputed :'0'}">
   
       <template v-for="card in row" :key="card.title" >
         <div class="cardDiv"  >
@@ -76,6 +76,10 @@ export default {
     isSelected(name) {
       return this.selectedName === name;
     },
+    handleScroll() {
+      this.scrollY = window.scrollY;
+    },
+
     goToLastSong() {
       this.allSongs = this.allSongs.sort((a, b) => new Date(b.date) - new Date(a.date));
       this.$router.push(`/song/${this.allSongs[0].songbacktitle}`)
@@ -83,6 +87,8 @@ export default {
     handleRowHover(index) {
   // Remove the index from hoverOrder if it's already there
   this.hoverOrder = this.hoverOrder.filter(i => i !== index);
+  this.currentMarginTop = this.$refs.cardsRow[index].style.marginTop;
+
     // Add the index to the start of hoverOrder
     this.hoverOrder.unshift(index);
     },
@@ -93,7 +99,40 @@ export default {
     event.target.style.zIndex = ""; // reset to the initial value
   },
   },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
   computed: {
+    currentMarginTopComputed(){
+      return this.currentMarginTop
+    },
+    lastHovered(){
+      return this.hoverOrder[0]
+    },
+    MarginTop() {
+
+     // const cardsComponentHeight = 10000;
+      var rowHeight = 1000; 
+            if(this.$refs.cardsRow){
+        var test = this.$refs.cardsRow[0].clientHeight;
+        console.log(test)
+        rowHeight = test;
+      }
+
+
+      var a = (this.scrollY+(rowHeight/2)) % rowHeight // (cardsComponentHeight / this.rows.length)
+      if(a > rowHeight/2){
+        a = rowHeight - a
+      }
+      var normalized = Math.floor(a)
+      console.log(normalized)
+      var go = -0.3 * rowHeight + Math.sin(normalized / rowHeight * Math.PI) * 0.3 * rowHeight
+
+return go;
+    },
     rows() {
     let rows = [];
     for (let i = 0; i < this.songsToDisplay.length; i += 3) {
@@ -110,6 +149,9 @@ export default {
     },
     zIndexes() {
     let zIndexes = [];
+    for (let i = 0; i < this.rows.length; i++) {
+      zIndexes.push(this.rows.length - i);
+    }
     for (let i = 0; i < this.hoverOrder.length; i++) {
       zIndexes[this.hoverOrder[i]] = this.hoverOrder.length - i+500;
     }
@@ -170,8 +212,11 @@ export default {
   },
   data() {
     return {
+      currentMarginTop: null,
       hoverOrder: [],  
       selectedName: '',
+      scrollY: 0, // new data property
+
       selectedArtist: '',
       sortType: 'dateDesc',
       allSongs: [{ title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' }, { title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' }, { title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' }, { title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' }, { title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' }, { title: 'caca', genre: 'caca', artist: 'caca', type: 'caac', album: 'caca', picture: 'prout' }]
@@ -221,8 +266,6 @@ export default {
 .cardsRow {
   display: flex;
 
-  justify-content: space-between;
-  margin-top: -100px;
   justify-content: space-between;
   /* Adjust the gap between cards */
   /* Center the cards */
