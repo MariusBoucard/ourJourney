@@ -18,7 +18,7 @@
           <path d="M 25 2 C 12.264481 2 2 12.264481 2 25 C 2 37.735519 12.264481 48 25 48 C 37.735519 48 48 37.735519 48 25 C 48 12.264481 37.735519 2 25 2 z M 25 4 C 36.664481 4 46 13.335519 46 25 C 46 36.664481 36.664481 46 25 46 C 13.335519 46 4 36.664481 4 25 C 4 13.335519 13.335519 4 25 4 z M 24 13 L 24 24 L 13 24 L 13 26 L 24 26 L 24 37 L 26 37 L 26 26 L 37 26 L 37 24 L 26 24 L 26 13 L 24 13 z"></path>
           </svg>
                 </button>
-                <button @click="playSong()" >
+                <button @click="playSong()" class="buttonLink">
           <svg fill="#000000" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 	 viewBox="0 0 512 512" xml:space="preserve">
           <g>
             <g>
@@ -33,6 +33,11 @@
           </g>
           </svg>
          </button>
+         <router-link :to="`/song/linktree/${song.songbacktitle}`" class="buttonLink" width="100px" title="Autres plateformes">
+        <img src="/assets/headphone.png" alt="spotify" style="height:30px"> 
+      
+      
+      </router-link>  
        </div>
       </div>
       <div class="songInfo">
@@ -198,7 +203,7 @@ export default {
   margin-bottom: 20px; /* Space below the text */
   text-align: center; /* Center the text */
 }
-.playerCard img {
+.playerCard .cover {
   width: 100%; /* Default width */
   height: auto; /* Keep the aspect ratio */
   border-radius: 10px; /* Rounded corners */
@@ -207,7 +212,7 @@ export default {
   margin: 20px 0; /* Margin around the image */
 }
 
-.playerCard img:hover {
+.playerCard .cover:hover {
   width: 150%; /* Enlarged size */
   border: 1px solid black; /* Solid border on hover */
   transform: rotate(-10deg); /* Rotate on hover */
@@ -230,8 +235,22 @@ export default {
   color: #6a11cb; /* Text color for buttons */
   transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
 }
+.buttonLink {
+  padding: 10px 20px; /* Padding inside the buttons */
+  border: none; /* Remove border */
 
+  border-radius: 5px; /* Rounded corners for buttons */
+  cursor: pointer; /* Pointer cursor on hover */
+  background-color: #fff; /* White background for buttons */
+  color: #6a11cb; /* Text color for buttons */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+}
 .playerCard button:hover {
+  background-color: #6a11cb; /* Background color on hover */
+  color: #fff; /* Text color on hover */
+}
+
+.buttonLink:hover {
   background-color: #6a11cb; /* Background color on hover */
   color: #fff; /* Text color on hover */
 }

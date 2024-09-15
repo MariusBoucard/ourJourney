@@ -12,8 +12,9 @@ Avec les copains, on écrit des chansons depuis une dizaine d'années, et j'ai p
       
         <div class="logo-and-title">
 
-          <img alt="logo" class="logo" src="/assets/pioneerWhite.png">
-        </div>
+          <router-link to="/">
+  <img alt="logo" class="logo" src="/assets/pioneerWhite.png">
+</router-link>        </div>
         <div class="nav-links">
           <!-- <router-link to="/">Home</router-link>
           <router-link to="/song">About</router-link>

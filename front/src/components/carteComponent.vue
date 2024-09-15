@@ -3,7 +3,10 @@
       <div class="card-content" @click.stop="navigateToSong(carte.songbacktitle)">
         <img :src=getPathCover(carte.pathcover) alt="Picture" class="card-img">
         <h2>{{ carte.titre }}</h2>
-        {{ showMore ? carte.description : carte.description.substring(0, 200) + '...' }}
+        <p class="descr">
+
+          {{ showMore ? carte.description : carte.description.substring(0, 200) + '...' }}
+        </p>
   <button @click.stop="showMore = !showMore">
     {{ showMore ? 'Voir plus' : 'Voir moins' }}
   </button>
@@ -148,6 +151,9 @@ button {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+}
+.descr {
+  min-height: 40%;
 }
 .buttonLink {
   padding: 10px 20px; /* Existing padding inside the buttons */
