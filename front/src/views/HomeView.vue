@@ -73,6 +73,9 @@ export default {
     CarteComponent
   },
   methods: {
+    updateCardsComponentWidth() {
+    this.cardsComponentWidth = this.$refs.cardsComponent ? this.$refs.cardsComponent.offsetWidth : 0;
+  },
     isSelected(name) {
       return this.selectedName === name;
     },
@@ -101,9 +104,13 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.updateCardsComponentWidth);
+  this.updateCardsComponentWidth();
   },
   beforeUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.updateCardsComponentWidth);
+
   },
   computed: {
     currentMarginTopComputed(){
@@ -133,8 +140,10 @@ export default {
     },
     rows() {
     let rows = [];
-    for (let i = 0; i < this.songsToDisplay.length; i += 3) {
-      rows.push(this.songsToDisplay.slice(i, i + 3));
+    console.log(this.cardsComponentWidth+" cardsComponentWidth")
+    let elementsPerRow = this.cardsComponentWidth < 600 ? 1 : 3;
+    for (let i = 0; i < this.songsToDisplay.length; i += elementsPerRow) {
+      rows.push(this.songsToDisplay.slice(i, i + elementsPerRow));
     }
     return rows;
   },
@@ -210,6 +219,8 @@ export default {
   },
   data() {
     return {
+      cardsComponentWidth: 0,
+
       currentMarginTop: null,
       hoverOrder: [],  
       selectedName: '',
@@ -465,6 +476,9 @@ select option {
 
 /* Mobile styles */
 @media (max-width: 768px) {
+.cardDiv {
+  width: 100%;
+}
   .main-content {
     padding: 10px;
     margin-left: 40px;
