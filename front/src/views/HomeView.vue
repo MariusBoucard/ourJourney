@@ -44,7 +44,7 @@
           <button @click="goToLastSong()" class="button-overlay">Dernière chanson publiée</button>
         </div>
         <div class="cardsComponent" ref="cardsComponent">
-          <div class="cardsRow" ref="cardsRow" v-on:mouseover="handleRowHover(index)" v-for="(row, index) in rows" :key="index"  :style="{ zIndex: zIndexes[index], position: 'relative' , marginTop: (index>0 && index !== lastHovered)? MarginTop + 'px' : index >0 ? currentMarginTopComputed :'0'}">
+          <div class="cardsRow" ref="cardsRow" v-on:mouseover="handleRowHover(index)" v-for="(row, index) in rows" :key="index"  :style="{ zIndex: zIndexes[index], position: 'relative' , marginTop: index === lastHovered+1? MarginTop + 'px' :( index >0 && index === lastHovered) ? currentMarginTopComputed :'0'}">
   
       <template v-for="card in row" :key="card.title" >
         <div class="cardDiv"  >
@@ -118,20 +118,18 @@ export default {
       var rowHeight = 1000; 
             if(this.$refs.cardsRow){
         var test = this.$refs.cardsRow[0].clientHeight;
-        console.log(test)
         rowHeight = test;
       }
 
 
-      var a = (this.scrollY+(rowHeight/2)) % rowHeight // (cardsComponentHeight / this.rows.length)
+      var a = (this.scrollY+(rowHeight)) % rowHeight // (cardsComponentHeight / this.rows.length)
       if(a > rowHeight/2){
         a = rowHeight - a
       }
       var normalized = Math.floor(a)
-      console.log(normalized)
-      var go = -0.3 * rowHeight + Math.sin(normalized / rowHeight * Math.PI) * 0.3 * rowHeight
-
-return go;
+      var go = -0.3 * rowHeight + Math.sin(normalized / rowHeight * Math.PI) * 0.35 * rowHeight
+      console.log(go)
+      return go;
     },
     rows() {
     let rows = [];
