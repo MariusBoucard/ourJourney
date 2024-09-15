@@ -32,7 +32,7 @@
             </div>
           </div>
           <div style="width:20%">
-            <select v-model="selectedArtist">
+            <select style="width: 100%;" v-model="selectedArtist">
               <option value="">Tous les artistes</option>
               <option v-for="artist in existingArtists" :key="artist" :value="artist">{{ artist }}</option>
             </select>
