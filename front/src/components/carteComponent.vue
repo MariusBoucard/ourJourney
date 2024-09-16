@@ -294,11 +294,10 @@ svg{
   transform: scale(1.05); /* Slightly increase size on hover */
 }
 .card{
-  transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out,transform 0.5s;
 }
 .card:hover{
   transform: scale(1.05);
-  transition: transform 0.5s;
   background: rgba(255, 255, 255, 0.75);
 
   box-shadow: 0 0 40px rgba(255, 255, 255, 1);
